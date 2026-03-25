@@ -1,78 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <title>WiFi-Charge Core | Login</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <style>
-        body, html {
-            height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        /* Background with Bangladesh Flag at 30% Brightness */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body, html { height: 100%; }
         .bg-image {
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg');
+            /* আপনার দেওয়া পৃথিবীর ছবি এখানে সেট করা হয়েছে */
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('1000108748.png');
             height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;
-            display: flex; justify-content: center; align-items: center; position: relative;
+            display: flex; justify-content: center; align-items: center;
         }
-        /* Language Toggle Button */
-        .lang-switch {
-            position: absolute; top: 20px; right: 20px;
-            background: rgba(255,255,255,0.2); color: white; border: 1px solid white;
-            padding: 5px 15px; border-radius: 20px; cursor: pointer;
+        .login-box {
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        /* Login Box */
-        .login-card {
-            background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); width: 320px; text-align: center;
+        h2 { color: #1a5d1a; margin-bottom: 20px; }
+        input {
+            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;
         }
-        h2 { color: #006a4e; margin-bottom: 20px; }
-        .btn-get-otp {
-            background-color: #f42a41; color: white; border: none; width: 100%;
-            padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold;
-            cursor: pointer; margin-top: 20px;
+        button {
+            width: 100%; padding: 12px; background: #f43f5e; color: white; border: none;
+            border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.3s;
         }
-        input { width: 100% !important; margin-bottom: 10px; }
+        button:hover { background: #e11d48; }
+        #recaptcha-container { margin: 10px 0; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="bg-image">
-    <button class="lang-switch" onclick="toggleLang()">English | বাংলা</button>
-    
-    <div class="login-card">
+    <div class="login-box">
         <h2 id="title">লগইন করুন</h2>
-        <p id="sub-title" style="color: #666; font-size: 14px;">আপনার মোবাইল নম্বর দিন</p>
+        <p id="instruction">আপনার মোবাইল নম্বর দিন</p>
         
-        <input id="phone" type="tel" name="phone" />
-        
-        <button class="btn-get-otp" id="otp-btn">ওটিপি পাঠান</button>
+        <div id="phone-section">
+            <input type="tel" id="phoneNumber" placeholder="+880123456789">
+            <div id="recaptcha-container"></div>
+            <button onclick="sendOTP()">ওটিপি পাঠান</button>
+        </div>
+
+        <div id="otp-section" class="hidden">
+            <input type="text" id="verificationCode" placeholder="৬ ডিজিট কোড লিখুন">
+            <button onclick="verifyOTP()">ভেরিফাই করুন</button>
+        </div>
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <script>
-    // Initialize International Telephone Input
-    const phoneInputField = document.querySelector("#phone");
-    const phoneInput = window.intlTelInput(phoneInputField, {
-        initialCountry: "bd",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    // আপনার দেওয়া Firebase Config
+    const firebaseConfig = {
+        apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIEOaGWcI",
+        authDomain: "wifi-core.firebaseapp.com",
+        projectId: "wifi-core",
+        storageBucket: "wifi-core.firebasestorage.app",
+        messagingSenderId: "631400272371",
+        appId: "1:631400272371:web:81443d140b50af68ad4286",
+        measurementId: "G-L9L950G3MT"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Recaptcha Setup
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible'
     });
 
-    // Language Toggle Function
-    let currentLang = 'bn';
-    function toggleLang() {
-        if(currentLang === 'bn') {
-            document.getElementById('title').innerText = "Login";
-            document.getElementById('sub-title').innerText = "Enter your mobile number";
-            document.getElementById('otp-btn').innerText = "Get OTP";
-            currentLang = 'en';
-        } else {
-            document.getElementById('title').innerText = "লগইন করুন";
-            document.getElementById('sub-title').innerText = "আপনার মোবাইল নম্বর দিন";
-            document.getElementById('otp-btn').innerText = "ওটিপি পাঠান";
-            currentLang = 'bn';
-        }
+    function sendOTP() {
+        const number = document.getElementById('phoneNumber').value;
+        auth.signInWithPhoneNumber(number, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                document.getElementById('phone-section').classList.add('hidden');
+                document.getElementById('otp-section').classList.remove('hidden');
+                document.getElementById('instruction').innerText = "আপনার মোবাইলে পাঠানো কোডটি লিখুন";
+                alert("ওটিপি পাঠানো হয়েছে!");
+            }).catch((error) => {
+                alert("ভুল নম্বর বা সমস্যা হয়েছে: " + error.message);
+            });
+    }
+
+    function verifyOTP() {
+        const code = document.getElementById('verificationCode').value;
+        confirmationResult.confirm(code).then((result) => {
+            alert("সফলভাবে লগইন হয়েছে!");
+            window.location.href = "https://google.com"; // সফল হলে যেখানে যাবে
+        }).catch((error) => {
+            alert("ভুল ওটিপি কোড!");
+        });
     }
 </script>
 
