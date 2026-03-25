@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi-Charge Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <style>
+        body, html {
+            height: 100%; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Background with Bangladesh Flag at 30% Brightness */
+        .bg-image {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://upload.wikimedia.org/wikipedia/commons/f/f9/Flag_of_Bangladesh.svg');
+            height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;
+            display: flex; justify-content: center; align-items: center; position: relative;
+        }
+        /* Language Toggle Button */
+        .lang-switch {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.2); color: white; border: 1px solid white;
+            padding: 5px 15px; border-radius: 20px; cursor: pointer;
+        }
+        /* Login Box */
+        .login-card {
+            background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); width: 320px; text-align: center;
+        }
+        h2 { color: #006a4e; margin-bottom: 20px; }
+        .btn-get-otp {
+            background-color: #f42a41; color: white; border: none; width: 100%;
+            padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold;
+            cursor: pointer; margin-top: 20px;
+        }
+        input { width: 100% !important; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="bg-image">
+    <button class="lang-switch" onclick="toggleLang()">English | বাংলা</button>
+    
+    <div class="login-card">
+        <h2 id="title">লগইন করুন</h2>
+        <p id="sub-title" style="color: #666; font-size: 14px;">আপনার মোবাইল নম্বর দিন</p>
+        
+        <input id="phone" type="tel" name="phone" />
+        
+        <button class="btn-get-otp" id="otp-btn">ওটিপি পাঠান</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script>
+    // Initialize International Telephone Input
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "bd",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    // Language Toggle Function
+    let currentLang = 'bn';
+    function toggleLang() {
+        if(currentLang === 'bn') {
+            document.getElementById('title').innerText = "Login";
+            document.getElementById('sub-title').innerText = "Enter your mobile number";
+            document.getElementById('otp-btn').innerText = "Get OTP";
+            currentLang = 'en';
+        } else {
+            document.getElementById('title').innerText = "লগইন করুন";
+            document.getElementById('sub-title').innerText = "আপনার মোবাইল নম্বর দিন";
+            document.getElementById('otp-btn').innerText = "ওটিপি পাঠান";
+            currentLang = 'bn';
+        }
+    }
+</script>
+
+</body>
+</html>
