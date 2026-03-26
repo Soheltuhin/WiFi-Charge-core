@@ -7,14 +7,17 @@
     <style>
         :root {
             --neon-blue: #00f2fe;
-            --neon-red: #ff0000;
-            --glass-bg: rgba(255, 255, 255, 0.1);
+            --neon-green: #39ff14;
+            --bg-dark: #0b0f19;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: radial-gradient(circle at top, #1e3a8a, #0b0f19);
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #1e3a8a, var(--bg-dark));
+            background-attachment: fixed;
             color: white;
             display: flex;
             flex-direction: column;
@@ -22,66 +25,51 @@
             min-height: 100vh;
         }
 
-        /* হেডার সেকশন */
+        /* ইউজার হেডার */
         .header {
             width: 90%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
+            padding: 25px 0;
         }
 
-        .user-box {
+        .user-profile {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .user-box img {
-            width: 55px;
-            height: 55px;
+        .user-profile img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        .user-text h2 {
-            margin: 0;
-            font-size: 18px;
-            letter-spacing: 1px;
-        }
-
-        /* বিশাল ইউটিউব কার্ড */
+        /* বিশাল ইউটিউব কার্ড (সিরিয়াল ১) */
         .youtube-hero {
             width: 90%;
             max-width: 450px;
-            aspect-ratio: 16/9;
-            background: var(--glass-bg);
-            border-radius: 25px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: var(--glass);
+            border-radius: 30px;
+            padding: 20px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+            text-align: center;
+            margin-bottom: 25px;
             text-decoration: none;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
-            transition: 0.3s;
-        }
-
-        .youtube-hero:hover {
-            border-color: var(--neon-red);
-            transform: scale(1.02);
         }
 
         .youtube-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 80%;
+            max-height: 150px;
+            object-fit: contain;
         }
 
-        /* অ্যাপ গ্রিড */
-        .grid-container {
+        /* অ্যাপ গ্রিড (সিরিয়াল অনুযায়ী) */
+        .app-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -89,82 +77,87 @@
             max-width: 450px;
         }
 
-        .card {
-            background: var(--glass-bg);
+        .app-card {
+            background: var(--glass);
             backdrop-filter: blur(15px);
-            padding: 20px;
             border-radius: 20px;
+            padding: 20px;
             text-align: center;
             text-decoration: none;
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--neon-blue);
+        .app-card:active {
+            transform: scale(0.9);
         }
 
-        .card img {
-            width: 45px;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        .app-card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
         }
 
-        .card span {
-            display: block;
+        /* ফোন বাটনের জন্য স্পেশাল বর্ডার */
+        .phone-highlight {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .app-name {
             font-size: 13px;
             font-weight: 500;
-        }
-
-        /* ফোন বাটন স্পেশাল ডিজাইন */
-        .phone-card {
-            border: 1px solid var(--neon-blue);
-            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="user-box">
+        <div class="user-profile">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
-            <div class="user-text">
-                <h2>MOHAMMAD SOHEL HOSSAIN</h2>
-                <span style="color: var(--neon-blue); font-size: 11px;">PREMIUM USER</span>
+            <div>
+                <h2 style="margin:0; font-size:16px;">MOHAMMAD SOHEL HOSSAIN</h2>
+                <span style="color: var(--neon-blue); font-size: 10px;">PREMIUM USER</span>
             </div>
         </div>
         <div style="font-size: 20px;">⚙️</div>
     </div>
 
-    <a href="https://play.google.com/store/apps/details?id=com.google.android.youtube" class="youtube-hero">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" style="width: 60%; height: auto;">
+    <a href="intent://#Intent;scheme=youtube;package=com.google.android.youtube;end" class="youtube-hero">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube">
+        <p style="margin: 10px 0 0; color: #ff0000; font-weight: bold;">OPEN YOUTUBE APP</p>
     </a>
 
-    <div class="grid-container">
-        <a href="https://myaccount.google.com" class="card">
+    <div class="app-grid">
+        
+        <a href="intent://#Intent;scheme=https;package=com.google.android.googlequicksearchbox;end" class="app-card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
-            <span>Google Account</span>
+            <span class="app-name">Google Account</span>
         </a>
 
-        <a href="https://www.facebook.com" class="card">
+        <a href="intent://#Intent;scheme=fb;package=com.facebook.katana;end" class="app-card">
             <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" alt="Facebook">
-            <span>Facebook</span>
+            <span class="app-name">Facebook</span>
         </a>
 
-        <a href="https://gemini.google.com" class="card">
+        <a href="intent://#Intent;scheme=https;package=com.google.android.apps.bard;end" class="app-card">
             <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-gemini-icon.png" alt="Gemini">
-            <span>Gemini AI</span>
+            <span class="app-name">Gemini AI</span>
         </a>
 
-        <a href="https://play.google.com/store/apps/details?id=com.google.android.dialer" class="card phone-card">
+        <a href="intent://#Intent;action=android.intent.action.DIAL;end" class="app-card phone-highlight">
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Google_Phone_icon.svg" alt="Phone">
-            <span>Official Phone Call</span>
+            <span class="app-name">Phone</span>
         </a>
+
     </div>
 
-    <p style="margin-top: 40px; color: #555; font-size: 12px;">© 2026 MDSOHEL SHORAF HOSSAIN</p>
+    <p style="margin-top: 50px; font-size: 10px; color: #444;">© MDSOHEL SHORAF HOSSAIN - 2026</p>
 
 </body>
 </html>
