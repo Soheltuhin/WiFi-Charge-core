@@ -2,172 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>WiFi-Charge | Premium Gold Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiFi-Charge | Login</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Shared Premium Styles */
     body {
       background: radial-gradient(circle at 10% 30%, #0a0c12, #030507);
-      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      margin: 0;
       color: #f5f0e6;
     }
-
-    /* Main Glass Card */
     .gold-card {
       max-width: 480px;
-      width: 100%;
+      width: 90%;
       background: rgba(18, 20, 28, 0.75);
       backdrop-filter: blur(12px);
       border-radius: 3rem;
       border: 1px solid rgba(255, 215, 0, 0.35);
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .gold-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 215, 0, 0.7);
-    }
-
-    .card-inner {
       padding: 2.5rem 2rem;
-    }
-
-    /* Brand Header */
-    .brand {
       text-align: center;
-      margin-bottom: 1.8rem;
     }
-
     .brand h1 {
       font-size: 2.4rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #F9B713 0%, #FFD966 40%, #F5A623 100%);
+      background: linear-gradient(135deg, #F9B713, #FFD966);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: -1px;
+      margin: 0;
     }
-
-    .brand-tag {
-      font-size: 0.85rem;
-      color: #FFD966;
-      background: rgba(255, 215, 0, 0.1);
-      display: inline-block;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      margin-top: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .sub-motto {
-      text-align: center;
-      color: #a0987a;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-      line-height: 1.4;
-    }
-
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .input-label {
-      display: block;
-      color: #FFDE9E;
-      font-size: 0.9rem;
-      margin-bottom: 0.8rem;
-      font-weight: 500;
-    }
-
     .phone-input-wrapper {
       display: flex;
-      align-items: center;
       background: rgba(0, 0, 0, 0.4);
       border-radius: 15px;
       border: 1px solid rgba(255, 215, 0, 0.3);
-      padding: 5px;
-      transition: 0.3s;
+      margin-top: 20px;
+      overflow: hidden;
     }
-
-    .phone-input-wrapper:focus-within {
-      border-color: #F5B81B;
-      box-shadow: 0 0 15px rgba(245, 184, 27, 0.2);
+    .country-code-select {
+      background: #12141c;
+      color: #FFD966;
+      border: none;
+      padding: 10px;
+      font-weight: bold;
+      outline: none;
     }
-<select id="countryCode" class="country-code-select">
-    <option value="+1">🇺🇸 +1 (USA)</option>
-    <option value="+880" selected>🇧🇩 +880 (BD)</option>
-    <option value="+91">🇮🇳 +91 (IN)</option>
-    <option value="+44">🇬🇧 +44 (UK)</option>
-    <hr>
-    <option value="+93">🇦🇫 +93 (AF)</option>
-    <option value="+355">🇦🇱 +355 (AL)</option>
-    <option value="+213">🇩🇿 +213 (DZ)</option>
-    <option value="+376">🇦🇩 +376 (AD)</option>
-    <option value="+244">🇦🇴 +244 (AO)</option>
-    <option value="+54">🇦🇷 +54 (AR)</option>
-    <option value="+374">🇦🇲 +374 (AM)</option>
-    <option value="+43">🇦🇹 +43 (AT)</option>
-    <option value="+994">🇦🇿 +994 (AZ)</option>
-    <option value="+973">🇧🇭 +973 (BH)</option>
-    <option value="+32">🇧🇪 +32 (BE)</option>
-    <option value="+55">🇧🇷 +55 (BR)</option>
-    <option value="+86">🇨🇳 +86 (CN)</option>
-    <option value="+20">🇪🇬 +20 (EG)</option>
-    <option value="+33">🇫🇷 +33 (FR)</option>
-    <option value="+30">🇬🇷 +30 (GR)</option>
-    <option value="+852">🇭🇰 +852 (HK)</option>
-    <option value="+62">🇮🇩 +62 (ID)</option>
-    <option value="+98">🇮🇷 +98 (IR)</option>
-    <option value="+39">🇮🇹 +39 (IT)</option>
-    <option value="+81">🇯🇵 +81 (JP)</option>
-    <option value="+965">🇰🇼 +965 (KW)</option>
-    <option value="+60">🇲🇾 +60 (MY)</option>
-    <option value="+52">🇲🇽 +52 (MX)</option>
-    <option value="+31">🇳🇱 +31 (NL)</option>
-    <option value="+64">🇳🇿 +64 (NZ)</option>
-    <option value="+974">🇶🇦 +974 (QA)</option>
-    <option value="+7">🇷🇺 +7 (RU)</option>
-    <option value="+27">🇿🇦 +27 (ZA)</option>
-    <option value="+82">🇰🇷 +82 (KR)</option>
-    <option value="+34">🇪🇸 +34 (ES)</option>
-    <option value="+41">🇨🇭 +41 (CH)</option>
-    <option value="+66">🇹🇭 +66 (TH)</option>
-    <option value="+90">🇹🇷 +90 (TR)</option>
-    <option value="+84">🇻🇳 +84 (VN)</option>
-</select>
-    
-    }
-
     #phoneNumber {
       flex: 1;
       background: transparent;
       border: none;
-      padding: 0.8rem;
-      color: #fff;
-      font-size: 1rem;
+      padding: 15px;
+      color: white;
       outline: none;
     }
-
-    /* Action Button */
-    .golden-action {
-      text-align: center;
-      margin-top: 2.5rem;
-    }
-
     .pin-icon-btn {
       background: linear-gradient(135deg, #F5BC2C, #CA9622);
       border: none;
@@ -175,150 +65,56 @@
       height: 80px;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      transition: 0.3s;
-      margin-bottom: 1rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       font-size: 2.5rem;
-    }
-
-    .pin-icon-btn:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 15px 30px rgba(245, 184, 27, 0.4);
-    }
-
-    .btn-text {
-      display: block;
-      font-weight: 600;
-      color: #FFD966;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-    }
-
-    /* Dashboard Styles */
-    #dashboardContainer {
-      display: none;
-      width: 100%;
-      max-width: 900px;
-    }
-
-    .dashboard-card {
-      background: rgba(22, 22, 28, 0.9);
-      border-radius: 2rem;
-      border: 1px solid #F5B81B;
-      overflow: hidden;
-    }
-
-    .dash-header {
-      padding: 1.5rem 2rem;
-      background: rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-    }
-
-    .stat-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 1.5rem;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255, 215, 0, 0.1);
-      text-align: center;
-    }
-
-    .logout-btn {
-      background: transparent;
-      border: 1px solid #F5B81B;
-      color: #F5B81B;
-      padding: 0.5rem 1.5rem;
-      border-radius: 20px;
-      cursor: pointer;
+      margin-top: 30px;
       transition: 0.3s;
     }
-
-    .logout-btn:hover {
-      background: #F5B81B;
-      color: #000;
-    }
-
-    .error-msg {
-      color: #ff6b6b;
-      font-size: 0.8rem;
-      margin-top: 10px;
-      display: none;
-      text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      .stats-grid { grid-template-columns: 1fr; }
-    }
+    .pin-icon-btn:hover { transform: scale(1.1); }
+    .error-msg { color: #ff6b6b; font-size: 0.8rem; display: none; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <div class="gold-card" id="loginCard">
-    <div class="card-inner">
-      <div class="brand">
-        <h1>⚡ WiFi-Charge</h1>
-        <div class="brand-tag">Premium Core Access</div>
-      </div>
-      
-      <p class="sub-motto">
-        Pair your internet connection and unlock ultra-fast global data sharing.
-      </p>
-
-      <form id="loginForm">
-        <div class="form-group">
-          <label class="input-label">Mobile Number</label>
-          <div class="phone-input-wrapper">
-            <span class="country-code">+1</span>
-            <input type="tel" id="phoneNumber" placeholder="Enter number" required>
-          </div>
-          <div class="error-msg" id="phoneError">Please enter a valid mobile number.</div>
-        </div>
-
-        <div class="golden-action">
-          <button type="submit" class="pin-icon-btn">📍</button>
-          <span class="btn-text">Enter with Golden PIN</span>
-          <p style="font-size: 0.7rem; color:#B89A40; margin-top: 10px;">No Password Required • Instant Access</p>
-        </div>
-      </form>
+  <div class="gold-card">
+    <div class="brand">
+      <h1>⚡ WiFi-Charge</h1>
+      <p style="color: #FFD966; font-size: 0.8rem;">PREMIUM CORE ACCESS</p>
     </div>
+    
+    <form id="loginForm">
+      <div class="phone-input-wrapper">
+        <select id="countryCode" class="country-code-select">
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+880" selected>🇧🇩 +880</option>
+            <option value="+91">🇮🇳 +91</option>
+            <option value="+44">🇬🇧 +44</option>
+        </select>
+        <input type="tel" id="phoneNumber" placeholder="Enter number" required>
+      </div>
+      <div class="error-msg" id="phoneError">Please enter a valid number</div>
+
+      <button type="submit" class="pin-icon-btn">gold-finger-pint</button>
+      <p style="color: #FFD966; margin-top: 15px; font-weight: bold;">ENTER WITH GOLDEN PIN</p>
+    </form>
   </div>
 
-  <div id="dashboardContainer">
-    <div class="dashboard-card">
-      <div class="dash-header">
-        <h2>WiFi-Charge Dashboard</h2>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-      </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const num = document.getElementById('phoneNumber').value;
+      const code = document.getElementById('countryCode').value;
       
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div style="font-size: 2rem;">📶</div>
-          <p style="color: #F5B81B; margin-top: 10px;">Active Plan</p>
-          <h3 id="displayPhone">Unlimited Gold</h3>
-        </div>
-        <div class="stat-box">
-          <div style="font-size: 2rem;">💎</div>
-          <p style="color: #F5B81B; margin-top: 10px;">Data Balance</p>
-          <h3>∞ GB Premium</h3>
-        </div>
-        <div class="stat-box">
-          <div style="font-size: 2rem;">🛡️</div>
-          <p style="color: #F5B81B; margin-top: 10px;">Security</p>
-          <h3>Core Encrypted</h3>
-        </div>
-      </div>
+      if(num.length < 7) {
+        document.getElementById('phoneError').style.display = 'block';
+        return;
+      }
 
-      <div style="padding: 0 2rem 2rem;">
-        <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 1rem;">
-          <h
+      // Store the number to use in dashboard.html
+      localStorage.setItem('userPhone', code + " " + num);
+      
+      // Redirect to dashboard
+      window. location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>
