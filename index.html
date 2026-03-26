@@ -76,17 +76,15 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Fixed Config (Updated API Key and App ID)
-        const firebaseConfig = {
-  apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIEOaGWcI",
-  authDomain: "wifi-core.firebaseapp.com",
-  projectId: "wifi-core",
-  storageBucket: "wifi-core.firebasestorage.app",
-  messagingSenderId: "631400272371",
-  appId: "1:631400272371:web:81443d140b50af68ad4286",
-  measurementId: "G-L9L950G3MT"
-};
-
+      const firebaseConfig = {
+            apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI",
+            authDomain: "wifi-core.firebaseapp.com",
+            projectId: "wifi-core",
+            storageBucket: "wifi-core.firebasestorage.app",
+            messagingSenderId: "631400272371",
+            appId: "1:631400272371:web:81443d140b50af68ad4286",
+            measurementId: "G-L9L950G3MT"
+        };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
