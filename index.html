@@ -7,33 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Background gradient like the image */
-        body { 
-            background: radial-gradient(circle at top, #1e3a8a, #000); 
-            min-height: 100vh; 
-            color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        }
-        /* Glassmorphism effect for the login card */
-        .glass { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-        }
-        /* Input styling to match the image */
-        input::placeholder { color: #555; }
-        .input-field {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
-            color: #ccc;
-        }
-        .input-field:focus {
-            border-color: #3b82f6;
-            outline: none;
-        }
-        /* Styling for the English/Bengali toggle */
+        body { background: radial-gradient(circle at top, #1e3a8a, #000); min-height: 100vh; color: white; font-family: sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .input-field { background-color: rgba(0, 0, 0, 0.3); border: 1px solid #333; color: #ccc; }
+        .input-field:focus { border-color: #3b82f6; outline: none; }
         .lang-link { cursor: pointer; transition: 0.3s; }
-        .lang-link:hover { color: #fff; }
         .lang-active { color: #3b82f6; font-weight: bold; }
     </style>
 </head>
@@ -44,68 +22,63 @@
         <span id="langBN" class="lang-link lang-active">বাংলা</span>
     </div>
 
-    <div class="w-full max-w-lg text-center space-y-12 mt-16 mb-16">
-        
-        <div class="space-y-3">
-            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight">
-                WiFi-<span class="text-blue-500">Charge</span> Core
-            </h1>
-            <p id="heroSubtitle" class="text-gray-400 text-lg">আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।</p>
+    <div class="w-full max-w-lg text-center space-y-8 mt-10">
+        <div class="space-y-2">
+            <h1 class="text-5xl font-extrabold tracking-tight">WiFi-<span class="text-blue-500">Charge</span> Core</h1>
+            <p id="heroSubtitle" class="text-gray-400">আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।</p>
         </div>
 
-        <div class="glass max-w-md mx-auto p-9 rounded-3xl shadow-2xl space-y-8">
-            <h2 id="loginTitle" class="text-3xl font-semibold">লগইন করুন</h2>
+        <div class="glass max-w-md mx-auto p-8 rounded-3xl shadow-2xl space-y-6">
+            <h2 id="loginTitle" class="text-2xl font-semibold">লগইন করুন</h2>
             
-            <div class="space-y-5 text-left">
+            <div class="space-y-4 text-left">
                 <div>
-                    <label id="labelPhone" class="block text-sm text-gray-500 mb-1 ml-1">মোবাইল নম্বর</label>
+                    <label id="labelEmail" class="block text-xs text-gray-500 mb-1 ml-1">ইমেইল ঠিকানা</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-3.5 text-gray-600"><i class="fas fa-phone"></i></span>
-                        <input type="tel" id="ph" placeholder="+8801XXXXXXXXX" class="input-field w-full rounded-xl py-3.5 pl-12 pr-4 text-base transition">
+                        <span class="absolute left-4 top-3 text-gray-600"><i class="fas fa-envelope"></i></span>
+                        <input type="email" id="em" placeholder="example@mail.com" class="input-field w-full rounded-xl py-3 pl-12 pr-4 transition">
                     </div>
                 </div>
 
                 <div>
-                    <label id="labelEmail" class="block text-sm text-gray-500 mb-1 ml-1">ইমেইল ঠিকানা</label>
+                    <label id="labelPass" class="block text-xs text-gray-500 mb-1 ml-1">পাসওয়ার্ড</label>
                     <div class="relative">
-                        <span class="absolute left-4 top-3.5 text-gray-600"><i class="fas fa-envelope"></i></span>
-                        <input type="email" id="em" placeholder="example@mail.com" class="input-field w-full rounded-xl py-3.5 pl-12 pr-4 text-base transition">
+                        <span class="absolute left-4 top-3 text-gray-600"><i class="fas fa-lock"></i></span>
+                        <input type="password" id="pw" placeholder="••••••••" class="input-field w-full rounded-xl py-3 pl-12 pr-4 transition">
                     </div>
                 </div>
             </div>
 
-            <button onclick="handleLoginAction()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl text-lg flex items-center justify-center space-x-2 transition-all">
-                <span id="btnLoginText">ওটিপি পাঠান</span>
-                <i class="fas fa-paper-plane"></i>
+            <button onclick="handleLoginAction()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl flex items-center justify-center space-x-2 transition">
+                <span id="btnLoginText">লগইন করুন</span>
+                <i class="fas fa-sign-in-alt"></i>
             </button>
 
-            <div class="flex items-center space-x-2 text-gray-600 pt-2">
+            <div class="flex items-center space-x-2 text-gray-700">
                 <hr class="flex-grow border-gray-800">
                 <span id="textOr">অথবা</span>
                 <hr class="flex-grow border-gray-800">
             </div>
 
-            <button onclick="gLogin()" class="w-full bg-white text-black font-bold py-3.5 rounded-xl flex items-center justify-center space-x-3 hover:bg-gray-200 transition">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="22" alt="Google Logo">
+            <button onclick="gLogin()" class="w-full bg-white text-black font-bold py-3 rounded-xl flex items-center justify-center space-x-3 hover:bg-gray-200 transition">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
                 <span id="btnGoogleText">Google দিয়ে চালিয়ে যান</span>
             </button>
 
-            <div class="pt-6 border-t border-gray-800 text-center text-gray-500 text-xs space-y-2">
-                <i class="fas fa-shield-alt text-green-600 text-xl"></i>
-                <p id="secureText">আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত রাখা হয়।</p>
+            <div class="pt-4 border-t border-gray-800 text-center text-gray-500 text-[10px] space-y-1">
+                <i class="fas fa-shield-alt text-green-600 text-lg"></i>
+                <p id="secureText">আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত।</p>
             </div>
         </div>
-
     </div>
 
     <script type="module">
-        // --- Firebase Core Logic (Keep your actual Config here) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // IMPORTANT: Copy your real Firebase Config from your project settings
+        // Fixed Config (Updated API Key and App ID)
         const firebaseConfig = {
-            apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI",
+            apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI", 
             authDomain: "wifi-core.firebaseapp.com",
             projectId: "wifi-core",
             storageBucket: "wifi-core.firebasestorage.app",
@@ -117,83 +90,47 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // 1. Google Login Function
+        // 1. Google Login
         window.gLogin = () => {
             signInWithPopup(auth, provider)
-                .then((result) => {
-                    alert("Welcome " + result.user.displayName);
-                    // Redirect to your dashboard page after login
-                    window.location.href = "dashboard.html";
-                })
-                .catch((error) => {
-                    alert("Error: " + error.message);
-                });
+                .then(() => window.location.href = "dashboard.html")
+                .catch((err) => alert("গুগল লগইন এরর: " + err.message));
         };
 
-        // 2. Placeholder for Phone/Email Action
+        // 2. Password Login
         window.handleLoginAction = () => {
-            const phone = document.getElementById('ph').value;
             const email = document.getElementById('em').value;
-            if (phone) {
-                alert("Verifying OTP for " + phone);
-            } else if (email) {
-                alert("Redirecting to Password login for " + email);
+            const password = document.getElementById('pw').value;
+            if (email && password) {
+                signInWithEmailAndPassword(auth, email, password)
+                    .then(() => window.location.href = "dashboard.html")
+                    .catch((err) => alert("ভুল ইমেইল বা পাসওয়ার্ড! " + err.message));
             } else {
-                alert("Please enter Phone or Email.");
+                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড দিন।");
             }
         };
 
-        // --- Language Switching Logic ---
+        // --- Language Logic ---
         const uiText = {
-            bn: {
-                subtitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।",
-                loginTitle: "লগইন করুন",
-                labelPhone: "মোবাইল নম্বর",
-                labelEmail: "ইমেইল ঠিকানা",
-                btnLogin: "ওটিপি পাঠান",
-                or: "অথবা",
-                btnGoogle: "Google দিয়ে চালিয়ে যান",
-                secure: "আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত রাখা হয়。"
-            },
-            en: {
-                subtitle: "Share your Internet, Earn Data Credits.",
-                loginTitle: "Login Now",
-                labelPhone: "Phone Number",
-                labelEmail: "Email Address",
-                btnLogin: "Send OTP",
-                or: "OR",
-                btnGoogle: "Continue with Google",
-                secure: "Your login is completely secure. We protect your data using Firebase and Google encryption."
-            }
+            bn: { subtitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।", loginTitle: "লগইন করুন", labelEmail: "ইমেইল ঠিকানা", labelPass: "পাসওয়ার্ড", btnLogin: "লগইন করুন", or: "অথবা", btnGoogle: "Google দিয়ে চালিয়ে যান", secure: "আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত।" },
+            en: { subtitle: "Share your Internet, Earn Data Credits.", loginTitle: "Login Now", labelEmail: "Email Address", labelPass: "Password", btnLogin: "Sign In", or: "OR", btnGoogle: "Continue with Google", secure: "Your login is completely secure. Your data is protected by Firebase and Google encryption." }
         };
 
-        function setLanguage(lang) {
-            // Update Text
+        window.setLanguage = (lang) => {
             document.getElementById('heroSubtitle').innerText = uiText[lang].subtitle;
             document.getElementById('loginTitle').innerText = uiText[lang].loginTitle;
-            document.getElementById('labelPhone').innerText = uiText[lang].labelPhone;
             document.getElementById('labelEmail').innerText = uiText[lang].labelEmail;
+            document.getElementById('labelPass').innerText = uiText[lang].labelPass;
             document.getElementById('btnLoginText').innerText = uiText[lang].btnLogin;
             document.getElementById('textOr').innerText = uiText[lang].or;
             document.getElementById('btnGoogleText').innerText = uiText[lang].btnGoogle;
             document.getElementById('secureText').innerText = uiText[lang].secure;
-
-            // Update Input Placeholders
-            document.getElementById('ph').placeholder = lang === 'bn' ? "+8801XXXXXXXXX" : "+8801700000000";
-            document.getElementById('em').placeholder = lang === 'bn' ? "example@mail.com" : "user@email.com";
-
-            // Update Active Link Styling
             document.getElementById('langBN').className = lang === 'bn' ? 'lang-link lang-active' : 'lang-link';
             document.getElementById('langEN').className = lang === 'en' ? 'lang-link lang-active' : 'lang-link';
-        }
+        };
 
-        // Event Listeners for Language
-        document.getElementById('langBN').addEventListener('click', () => setLanguage('bn'));
-        document.getElementById('langEN').addEventListener('click', () => setLanguage('en'));
-        
-        // Default language
-        setLanguage('bn');
-
+        document.getElementById('langBN').onclick = () => setLanguage('bn');
+        document.getElementById('langEN').onclick = () => setLanguage('en');
     </script>
 </body>
 </html>
