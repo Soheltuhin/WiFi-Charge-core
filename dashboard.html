@@ -1,238 +1,128 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge | English Version</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <title>Super App Dashboard</title>
     <style>
-        :root {
-            --sky-blue: #87CEEB;
-            --hill-green: #228B22;
-            --gold: #D4AF37;
-            --sos-red: #FF0000;
+        body {
+            margin: 0;
+            padding: 0;
+            /* আপনার পছন্দের হালকা নীল ও সাদা গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড */
+            background: linear-gradient(180deg, #e3f2fd 0%, #ffffff 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Inter', sans-serif; overflow: hidden; }
-
-        /* 1. Welcome Screen Style */
-        #welcome-screen {
-            position: fixed; width: 100%; height: 100%; background: var(--sky-blue);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100;
-            transition: transform 0.8s ease-in-out;
-        }
-        .hills-bg {
-            position: absolute; bottom: 0; width: 100%; height: 40%; background: var(--hill-green);
-            border-radius: 50% 50% 0 0 / 100% 100% 0 0; transform: scaleX(1.5); z-index: 1;
-        }
-        .welcome-content { z-index: 10; text-align: center; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        
-        /* Fingerprint Button */
-        .fingerprint-container { position: relative; width: 100px; height: 100px; margin-top: 20px; z-index: 15; }
-        .fingerprint-btn {
-            width: 100%; height: 100%; border: 4px solid var(--gold); border-radius: 50%;
-            background: rgba(255, 255, 255, 0.9); color: var(--gold); font-size: 50px;
-            display: flex; justify-content: center; align-items: center; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5); position: relative; overflow: hidden;
-        }
-        .scan-line {
-            position: absolute; width: 100%; height: 4px; background: var(--gold);
-            box-shadow: 0 0 10px var(--gold); top: -100%; display: none;
-        }
-        @keyframes scan { 0% { top: 0%; opacity: 1; } 100% { top: 100%; opacity: 0; } }
-
-        /* Butterfly Animation */
-        .butterfly-container { position: absolute; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
-        .butterfly { position: absolute; width: 25px; height: 25px; opacity: 0; transition: opacity 0.5s; }
-        @keyframes flyAway {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(0.5); opacity: 0; }
+        .header {
+            margin-top: 40px;
+            text-align: center;
+            color: #01579b;
         }
 
-        /* 2. Dashboard Screen Style */
-        #dashboard-screen {
-            display: none; height: 100vh; flex-direction: column; background: white; z-index: 50;
-        }
-        header { padding: 25px; text-align: center; border-bottom: 1px solid #eee; }
-        #clock { font-size: 2.8rem; font-weight: 800; color: black; }
-        .container { flex: 1; padding: 20px; text-align: center; overflow-y: auto; }
-
-        /* Wallet Section */
-        .wallet-card {
-            border: 2px solid #eee; padding: 15px; border-radius: 20px;
-            background: #fff; margin: 20px auto; max-width: 250px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .progress-container {
-            width: 100%; height: 10px; background: #eee;
-            border-radius: 5px; margin: 10px 0; overflow: hidden;
-        }
-        .progress-bar { width: 0%; height: 100%; background: var(--hill-green); transition: width 0.3s; }
-        .data-text { font-size: 18px; font-weight: bold; color: #333; }
-
-        .charge-btn {
-            background: var(--gold); border: none; padding: 8px 15px;
-            border-radius: 10px; color: white; font-weight: bold; cursor: pointer; margin-top: 5px;
+        .header h1 {
+            font-size: 22px;
+            margin: 0;
+            letter-spacing: 1px;
         }
 
-        .sos-btn {
-            background: var(--sos-red); color: white; border: none; width: 110px; height: 110px;
-            border-radius: 50%; font-weight: bold; font-size: 1.2rem; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255,0,0,0.3); transition: 0.3s;
+        /* আইকন গ্রিড */
+        .icon-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+            padding: 20px;
+            max-width: 360px;
         }
-        .sos-btn:active { transform: scale(0.9); }
 
-        nav { display: flex; justify-content: space-around; padding: 18px; border-top: 1px solid #eee; background: #fff; }
-        nav i { font-size: 1.6rem; color: #888; }
+        .app-link {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .app-link:active {
+            transform: scale(0.9);
+        }
+
+        /* আপনার ছবির মতো সাদা গোল আইকন বক্স */
+        .icon-circle {
+            width: 65px;
+            height: 65px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* হালকা শ্যাডো যাতে সাদা ব্যাকগ্রাউন্ডে ফুটে ওঠে */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .icon-circle img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .app-label {
+            color: #333;
+            font-size: 12px;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 
-    <div id="welcome-screen">
-        <div class="hills-bg"></div>
-        <div class="butterfly-container" id="butterflyContainer"></div>
-        <div class="welcome-content">
-            <h1 style="font-size: 3.5rem; margin:0;">Welcome</h1>
-            <p style="font-size: 1.5rem;">WiFi-Charge</p>
-            <div class="fingerprint-container">
-                <button class="fingerprint-btn" id="fingerprintBtn">
-                    <i class="fa-solid fa-fingerprint"></i>
-                    <div class="scan-line" id="scanLine"></div>
-                </button>
-                <p style="color: var(--gold); font-weight: bold; margin-top: 15px; text-shadow: none;">Tap to Scan</p>
-            </div>
-        </div>
+    <div class="header">
+        <h1>All-in-One Super App</h1>
     </div>
 
-    <div id="dashboard-screen">
-        <header>
-            <div id="clock">00:00:00 AM</div>
-        </header>
-
-        <div class="container">
-            <i class="fa-solid fa-fingerprint" style="font-size: 40px; color: var(--gold);"></i>
-            <p style="margin: 5px 0 15px;"><strong>Group Admin</strong></p>
-
-            <div class="wallet-card">
-                <i class="fa-solid fa-wifi" style="color: var(--hill-green); font-size: 20px;"></i>
-                <div class="data-text"><span id="data-val">0</span> MB / 1024 MB</div>
-                <div class="progress-container">
-                    <div class="progress-bar" id="data-progress"></div>
-                </div>
-                <button class="charge-btn" onclick="startCharging()">Charge Data</button>
+    <div class="icon-container">
+        
+        <a href="wifi-charge.html" class="app-link">
+            <div class="icon-circle">
+                <img src="https://img.icons8.com/color/96/wi-fi-connected.png" alt="WiFi">
             </div>
+            <span class="app-label">WiFi Charge</span>
+        </a>
 
-            <div style="margin-top: 30px;">
-                <button class="sos-btn" onclick="triggerSOS()">SOS</button>
-                <p id="sosAlert" style="color: red; font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 20px;"></p>
+        <a href="https://www.google.com" target="_blank" class="app-link">
+            <div class="icon-circle">
+                <img src="https://img.icons8.com/color/96/google-logo.png" alt="Google">
             </div>
-        </div>
+            <span class="app-label">Google</span>
+        </a>
 
-        <nav>
-            <i class="fa-solid fa-message" style="color: black;"></i>
-            <i class="fa-solid fa-users"></i>
-            <i class="fa-solid fa-gear"></i>
-        </nav>
+        <a href="https://maps.google.com" target="_blank" class="app-link">
+            <div class="icon-circle">
+                <img src="https://img.icons8.com/color/96/google-maps-new.png" alt="Map">
+            </div>
+            <span class="app-label">Map</span>
+        </a>
+
+        <a href="https://wa.me/" target="_blank" class="app-link">
+            <div class="icon-circle">
+                <img src="https://img.icons8.com/color/96/whatsapp.png" alt="WhatsApp">
+            </div>
+            <span class="app-label">WhatsApp</span>
+        </a>
+
+        <a href="https://www.youtube.com" target="_blank" class="app-link">
+            <div class="icon-circle">
+                <img src="https://img.icons8.com/color/96/youtube-play.png" alt="YouTube">
+            </div>
+            <span class="app-label">YouTube</span>
+        </a>
+
     </div>
 
-    <script>
-        const fingerprintBtn = document.getElementById('fingerprintBtn');
-        const scanLine = document.getElementById('scanLine');
-        const butterflyContainer = document.getElementById('butterflyContainer');
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const dashboardScreen = document.getElementById('dashboard-screen');
-
-        // Butterfly Animation Logic
-        function createButterflies() {
-            const emojis = ['🦋', '✨', '🌸'];
-            for (let i = 0; i < 25; i++) {
-                const b = document.createElement('div');
-                b.classList.add('butterfly');
-                b.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                b.style.fontSize = '25px';
-                
-                const rect = fingerprintBtn.getBoundingClientRect();
-                const startX = rect.left + (rect.width / 2);
-                const startY = rect.top + (rect.height / 2);
-                
-                b.style.left = startX + 'px';
-                b.style.top = startY + 'px';
-
-                b.style.setProperty('--tx', `${(Math.random() - 0.5) * 600}px`);
-                b.style.setProperty('--ty', `${-Math.random() * 500 - 100}px`);
-                b.style.setProperty('--tr', `${(Math.random() - 0.5) * 720}deg`);
-
-                b.style.animation = `flyAway 1.5s ease-out ${Math.random() * 0.3}s forwards`;
-                butterflyContainer.appendChild(b);
-                setTimeout(() => b.remove(), 2000);
-            }
-        }
-
-        // Screen Transition
-        fingerprintBtn.addEventListener('click', function() {
-            scanLine.style.display = 'block';
-            scanLine.style.animation = 'scan 1s ease-in-out';
-            createButterflies();
-
-            setTimeout(() => {
-                welcomeScreen.style.transform = 'translateY(-100%)';
-                setTimeout(() => {
-                    welcomeScreen.style.display = 'none';
-                    dashboardScreen.style.display = 'flex';
-                }, 800);
-            }, 1200);
-        });
-
-        // 1GB Charging Logic
-        let currentMB = 0;
-        const maxMB = 1024;
-        function startCharging() {
-            if (currentMB >= maxMB) {
-                alert("Wallet Full! (1GB Reached)");
-                return;
-            }
-            const interval = setInterval(() => {
-                if (currentMB < maxMB) {
-                    currentMB += 8; 
-                    if (currentMB > maxMB) currentMB = maxMB;
-                    document.getElementById('data-val').innerText = currentMB;
-                    document.getElementById('data-progress').style.width = (currentMB / maxMB) * 100 + '%';
-                } else {
-                    clearInterval(interval);
-                }
-            }, 50);
-        }
-
-        // 12-Hour Real-time Clock
-        function updateClock() {
-            const now = new Date();
-            let h = now.getHours();
-            let m = now.getMinutes();
-            let s = now.getSeconds();
-            let ampm = h >= 12 ? 'PM' : 'AM';
-            h = h % 12 || 12;
-            m = m < 10 ? '0' + m : m;
-            s = s < 10 ? '0' + s : s;
-            document.getElementById('clock').innerText = `${h}:${m}:${s} ${ampm}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // SOS Protocol
-        let sosCount = 0;
-        function triggerSOS() {
-            sosCount++;
-            const alertBox = document.getElementById('sosAlert');
-            if(sosCount === 1) alertBox.innerText = "⚠️ STEP 1: Emergency Message Sent!";
-            else {
-                alertBox.innerText = "🚨 STEP 2: Sharing Live Location & Voice!";
-                sosCount = 0;
-            }
-        }
-    </script>
 </body>
 </html>
