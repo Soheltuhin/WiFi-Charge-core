@@ -8,71 +8,90 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body, html { height: 100%; }
-        .bg-image {
-            /* আপনার দেওয়া পৃথিবীর ছবি এখানে সেট করা হয়েছে */
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('1000108748.png');
-            height: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;
-            display: flex; justify-content: center; align-items: center;
+        
+        /* আপনার পছন্দমতো গভীর নীল ব্যাকগ্রাউন্ড */
+        .bg-container {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+        
         .login-box {
-            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 20px;
-            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
-        h2 { color: #1a5d1a; margin-bottom: 20px; }
+        
+        h2 { color: #0d47a1; margin-bottom: 10px; font-size: 22px; }
+        p { color: #555; margin-bottom: 25px; }
+        
         input {
-            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
         }
+        
         button {
-            width: 100%; padding: 12px; background: #f43f5e; color: white; border: none;
-            border-radius: 8px; font-size: 18px; cursor: pointer; transition: 0.3s;
+            width: 100%;
+            padding: 14px;
+            background: #0d47a1;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
         }
-        button:hover { background: #e11d48; }
-        #recaptcha-container { margin: 10px 0; }
+        
         .hidden { display: none; }
+        #recaptcha-container { margin: 10px 0; }
     </style>
 </head>
 <body>
 
-<div class="bg-image">
+<div class="bg-container">
     <div class="login-box">
-        <h2 id="title">লগইন করুন</h2>
-        <p id="instruction">আপনার মোবাইল নম্বর দিন</p>
+        <h2>লগইন করুন</h2>
+        <p id="instruction">আপনার মোবাইল নম্বরটি দিন</p>
         
         <div id="phone-section">
-            <input type="tel" id="phoneNumber" placeholder="+880123456789">
+            <input type="tel" id="phoneNumber" placeholder="+8801700000000">
             <div id="recaptcha-container"></div>
             <button onclick="sendOTP()">ওটিপি পাঠান</button>
         </div>
 
         <div id="otp-section" class="hidden">
-            <input type="text" id="verificationCode" placeholder="৬ ডিজিট কোড লিখুন">
+            <input type="text" id="verificationCode" placeholder="কোডটি লিখুন">
             <button onclick="verifyOTP()">ভেরিফাই করুন</button>
         </div>
     </div>
 </div>
 
 <script>
-    // আপনার দেওয়া Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIEOaGWcI",
         authDomain: "wifi-core.firebaseapp.com",
         projectId: "wifi-core",
         storageBucket: "wifi-core.firebasestorage.app",
         messagingSenderId: "631400272371",
-        appId: "1:631400272371:web:81443d140b50af68ad4286",
-        measurementId: "G-L9L950G3MT"
+        appId: "1:631400272371:web:81443d140b50af68ad4286"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Recaptcha Setup
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-        'size': 'invisible'
-    });
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
 
     function sendOTP() {
         const number = document.getElementById('phoneNumber').value;
@@ -81,23 +100,18 @@
                 window.confirmationResult = confirmationResult;
                 document.getElementById('phone-section').classList.add('hidden');
                 document.getElementById('otp-section').classList.remove('hidden');
-                document.getElementById('instruction').innerText = "আপনার মোবাইলে পাঠানো কোডটি লিখুন";
+                document.getElementById('instruction').innerText = "আপনার মোবাইলের কোডটি দিন";
                 alert("ওটিপি পাঠানো হয়েছে!");
-            }).catch((error) => {
-                alert("ভুল নম্বর বা সমস্যা হয়েছে: " + error.message);
-            });
+            }).catch((err) => alert("ভুল হয়েছে: " + err.message));
     }
 
     function verifyOTP() {
         const code = document.getElementById('verificationCode').value;
-        confirmationResult.confirm(code).then((result) => {
+        confirmationResult.confirm(code).then(() => {
             alert("সফলভাবে লগইন হয়েছে!");
-            window.location.href = "https://google.com"; // সফল হলে যেখানে যাবে
-        }).catch((error) => {
-            alert("ভুল ওটিপি কোড!");
-        });
+            window.location.href = "https://google.com";
+        }).catch(() => alert("ভুল কোড!"));
     }
 </script>
-
 </body>
 </html>
