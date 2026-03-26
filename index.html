@@ -3,56 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge-core Login</title>
+    <title>WiFi-Charge Core | Global Access</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #001f3f; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: #333; padding: 30px; border-radius: 15px; width: 350px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .lang-switch { text-align: right; font-size: 14px; margin-bottom: 20px; color: #bbb; }
-        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; }
-        button { width: 98%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .google-btn { background-color: white; color: black; margin-top: 15px; }
-        .footer-link { margin-top: 15px; font-size: 12px; color: #888; }
+        body { background: radial-gradient(circle at top, #1e3a8a, #000); min-height: 100vh; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glow-btn { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); transition: 0.3s; }
+        .glow-btn:hover { box-shadow: 0 0 35px rgba(59, 130, 246, 0.8); transform: translateY(-2px); }
     </style>
 </head>
-<body>
+<body class="flex flex-col items-center justify-center p-4">
 
-<div class="login-card">
-    <div class="lang-switch">English | বাংলা</div>
-    
-    <h2 id="title">লগইন করুন</h2>
-
-    <input type="tel" id="phone" placeholder="+8801XXXXXXXXX" required>
-    
-    <input type="email" id="email" placeholder="আপনার ইমেইল">
-    
-    <input type="password" id="password" placeholder="পাসওয়ার্ড">
-
-    <button onclick="handleLogin()">লগইন</button>
-
-    <button class="google-btn" onclick="googleLogin()">Login with Google</button>
-
-    <div class="footer-link">
-        <p>কল সুবিধা এবং ওটিপি সাপোর্ট চালু আছে</p>
+    <div class="fixed top-6 right-6 text-sm text-gray-400">
+        <span class="cursor-pointer hover:text-white">EN</span> | 
+        <span class="cursor-pointer text-blue-400 font-bold">বাংলা</span>
     </div>
-</div>
 
-<script>
-    function handleLogin() {
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
+    <div class="w-full max-w-4xl text-center space-y-12">
         
-        if(phone) {
-            alert("মোবাইল নম্বরে ওটিপি পাঠানো হচ্ছে...");
-            // এখানে আপনার ওটিপি লজিক বসবে
-        } else if(email) {
-            alert("ইমেইল দিয়ে লগইন করা হচ্ছে...");
+        <div class="space-y-4 animate-fade-in">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight">
+                WiFi-<span class="text-blue-500">Charge</span> Core
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl">আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।</p>
+        </div>
+
+        <div class="glass max-w-md mx-auto p-8 rounded-3xl shadow-2xl space-y-6">
+            <h2 class="text-2xl font-semibold">লগইন করুন</h2>
+            
+            <div class="space-y-4 text-left">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1 ml-1">মোবাইল নম্বর</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-gray-500"><i class="fas fa-phone"></i></span>
+                        <input type="tel" id="ph" placeholder="+8801XXXXXXXXX" class="w-full bg-black/40 border border-gray-700 rounded-xl py-3 pl-12 pr-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1 ml-1">ইমেইল ঠিকানা</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-gray-500"><i class="fas fa-envelope"></i></span>
+                        <input type="email" id="em" placeholder="example@mail.com" class="w-full bg-black/40 border border-gray-700 rounded-xl py-3 pl-12 pr-4 focus:border-blue-500 outline-none transition">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="sendOTP()" class="w-full glow-btn bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl text-lg transition-all">
+                ওটিপি পাঠান <i class="fas fa-paper-plane ml-2"></i>
+            </button>
+
+            <div class="flex items-center space-x-2 text-gray-500">
+                <hr class="flex-grow border-gray-700">
+                <span>অথবা</span>
+                <hr class="flex-grow border-gray-700">
+            </div>
+
+            <button onclick="gLogin()" class="w-full bg-white text-black font-bold py-3 rounded-xl flex items-center justify-center space-x-3 hover:bg-gray-200 transition">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
+                <span>Google দিয়ে চালিয়ে যান</span>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div class="glass p-6 rounded-2xl">
+                <i class="fas fa-headset text-blue-500 text-2xl mb-4"></i>
+                <h4 class="font-bold">সরাসরি কল</h4>
+                <p class="text-sm text-gray-400">যেকোনো সমস্যায় সরাসরি আমাদের সাথে কথা বলুন।</p>
+            </div>
+            <div class="glass p-6 rounded-2xl border-blue-500/30">
+                <i class="fas fa-shield-alt text-green-500 text-2xl mb-4"></i>
+                <h4 class="font-bold">নিরাপদ লগইন</h4>
+                <p class="text-sm text-gray-400">Firebase এবং Google এনক্রিপশন দ্বারা সুরক্ষিত।</p>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <i class="fas fa-wallet text-yellow-500 text-2xl mb-4"></i>
+                <h4 class="font-bold">ডাটা ওয়ালেট</h4>
+                <p class="text-sm text-gray-400">আপনার জমানো ক্রেডিট সরাসরি রিচার্জ করুন।</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const sendOTP = () => {
+            const p = document.getElementById('ph').value;
+            if(!p) alert("অনুগ্রহ করে মোবাইল নম্বর দিন।");
+            else alert(p + " নম্বরে ওটিপি পাঠানো হচ্ছে...");
         }
-    }
-
-    function googleLogin() {
-        alert("গুগল লগইন উইন্ডো ওপেন হচ্ছে...");
-    }
-</script>
-
+        const gLogin = () => alert("গুগল লগইন সিস্টেম ওপেন হচ্ছে...");
+    </script>
 </body>
 </html>
