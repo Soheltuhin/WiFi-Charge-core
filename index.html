@@ -3,77 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super App Loading</title>
+    <title>Loading Super App</title>
     <style>
-        /* পুরো স্ক্রিন জুড়েই একটি ব্যাকগ্রাউন্ড থাকবে */
         body {
             margin: 0;
-            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            /* আপনার পছন্দের সাদা-নীল ব্যাকগ্রাউন্ড */
-            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
+            background: radial-gradient(circle, #ffffff 0%, #e0f7fa 100%); /* সাদা-নীল ব্যাকগ্রাউন্ড */
+            font-family: Arial, sans-serif;
             overflow: hidden;
         }
 
-        /* লোডিং কন্টেইনার */
-        .loading-container {
+        .loader-wrapper {
             text-align: center;
         }
 
-        /* ৩টি বিন্দু (dots) অ্যানিমেশন */
-        .dots {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-
-        .dots div {
-            position: absolute;
-            top: 33px;
-            width: 13px;
-            height: 13px;
+        /* সুন্দর নীল সার্কেল অ্যানিমেশন */
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #00bcd4; /* হালকা নীল */
             border-radius: 50%;
-            /* প্রধান লোডিং কালার: হালকা নীল */
-            background: #03a9f4;
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
 
-        .dots div:nth-child(1) {
-            left: 8px;
-            animation: dots1 0.6s infinite;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .dots div:nth-child(2) {
-            left: 8px;
-            animation: dots2 0.6s infinite;
+        .text {
+            color: #007c91;
+            font-size: 18px;
+            letter-spacing: 2px;
+            font-weight: bold;
         }
+    </style>
+</head>
+<body>
 
-        .dots div:nth-child(3) {
-            left: 32px;
-            animation: dots2 0.6s infinite;
-        }
+    <div class="loader-wrapper">
+        <div class="spinner"></div>
+        <div class="text">লোড হচ্ছে...</div>
+    </div>
 
-        .dots div:nth-child(4) {
-            left: 56px;
-            animation: dots3 0.6s infinite;
-        }
+    <script>
+        // ৫ সেকেন্ড (৫০০০ মিলিসেকেন্ড) পর ড্যাশবোর্ডে যাবে
+        setTimeout(function() {
+            window.location.href = "dashboard.html"; 
+        }, 5000);
+    </script>
 
-        /* বিন্দুগুলোর জন্য অ্যানিমেশন কিফ্রেম */
-        @keyframes dots1 {
-            0% { transform: scale(0); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes dots2 {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(24px, 0); }
-        }
-
-        @keyframes dots3 {
-            0% { transform: scale(1); }
-            100% { transform: scale(0); }
+</body>
+</html>
