@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi-Charge | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="p-6">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-500">WiFi-Charge Core</h1>
+            <button onclick="logout()" class="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl flex items-center space-x-6">
+            <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-3xl font-bold shadow-lg shadow-blue-500/20">
+                <span id="userInitial">U</span>
+            </div>
+            <div>
+                <h2 id="userName" class="text-xl font-semibold">Loading...</h2>
+                <p id="userEmail" class="text-gray-400 font-mono text-sm">user@example.com</p>
+                <div class="mt-2 inline-flex items-center bg-green-900/30 text-green-400 text-xs px-3 py-1 rounded-full border border-green-800/50">
+                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                    Account Active
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-gray-400 text-sm font-medium uppercase tracking-wider">Current Data Credit</p>
+                    <i class="fas fa-database text-blue-500"></i>
+                </div>
+                <h3 class="text-4xl font-extrabold mt-1 text-blue-400">0.00 <span class="text-lg font-normal">GB</span></h3>
+            </div>
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-gray-400 text-sm font-medium uppercase tracking-wider">Total Earnings</p>
+                    <i class="fas fa-wallet text-green-500"></i>
+                </div>
+                <h3 class="text-4xl font-extrabold mt-1 text-green-400"><span class="text-lg font-normal">QAR</span> 0.00</h3>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI",
+            authDomain: "wifi-core.firebaseapp.com",
+            projectId: "wifi-core",
+            storageBucket: "wifi-core.firebasestorage.app",
+            messagingSenderId: "631400272371",
+            appId: "1:631400272371:web:81443d140b50af68ad4286",
+            measurementId: "G-L9L950G3MT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Track Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('userEmail').innerText = user.email;
+                document.getElementById('userName').innerText = user.displayName || "Valued User";
+                document.getElementById('userInitial').innerText = user.email.charAt(0).toUpperCase();
+            } else {
+                // If not logged in, redirect to index
+                window.location.href = "index.html";
+            }
+        });
+
+        // Logout Logic
+        window.logout = () => {
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            }).catch((error) => {
+                console.error("Logout Error:", error);
+            });
+        };
+    </script>
+</body>
+</html>        
