@@ -1,103 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WiFi-Charge Core</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-<style>
-body {
-    background: radial-gradient(circle at top, #1e3a8a, #0b0f1a);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: 'Inter', sans-serif;
-}
-.glass {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-    border-radius: 25px;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-.input {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi-Charge Core | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: radial-gradient(circle at top, #1e3a8a, #0b0f1a); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; color: white; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2rem; }
+        .input-field { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; color: white; }
+    </style>
 </head>
-
 <body>
 
-<div class="w-full max-w-md p-5">
+    <div class="w-full max-w-md p-6">
+        <div class="flex justify-end mb-6 text-sm gap-2">
+            <button onclick="switchLang('en')" id="enBtn" class="text-blue-400 font-bold">EN</button>
+            <span class="text-gray-600">|</span>
+            <button onclick="switchLang('bn')" id="bnBtn" class="text-gray-400 hover:text-white transition">বাংলা</button>
+        </div>
 
-<!-- Language -->
-<div class="flex justify-end mb-6 text-sm gap-2">
-<button onclick="setLang('en')" id="enBtn" class="text-blue-400 font-bold">EN</button>
-<span>|</span>
-<button onclick="setLang('bn')" id="bnBtn" class="text-gray-400">বাংলা</button>
-</div>
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black tracking-tighter italic">WiFi-<span class="text-blue-500">Charge</span><br><span class="text-white">Core</span></h1>
+            <p id="subTitle" class="text-gray-400 mt-4 text-sm px-4">Share your internet, Earn data credits.</p>
+        </div>
 
-<!-- Title -->
-<div class="text-center mb-10">
-<h1 class="text-4xl font-black italic">
-WiFi-<span class="text-blue-500">Charge</span><br>Core
-</h1>
-<p id="subtitle" class="text-gray-400 mt-3 text-sm">
-Share your internet, Earn data credits.
-</p>
-</div>
+        <div class="glass-card p-8 shadow-2xl">
+            <h2 id="loginTitle" class="text-2xl font-bold text-center mb-8">Login Now</h2>
+            <form id="loginForm" class="space-y-5">
+                <div class="relative">
+                    <i class="fas fa-envelope absolute left-4 top-4 text-gray-500"></i>
+                    <input type="email" id="email" placeholder="example@mail.com" required class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
+                </div>
+                <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-4 text-gray-500"></i>
+                    <input type="password" id="password" placeholder="Password" required class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
+                </div>
+                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <span id="btnText">Login</span> <i class="fas fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+            <div class="relative my-8 text-center"><hr class="border-gray-800"><span id="orText" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0b0f1a] px-4 text-xs text-gray-500 uppercase">Or</span></div>
+            <button class="w-full bg-white text-gray-900 font-bold py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-200 transition">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" class="w-5 h-5">
+                <span id="googleText">Continue with Google</span>
+            </button>
+        </div>
+    </div>
 
-<!-- Card -->
-<div class="glass p-7 shadow-2xl">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-<h2 id="loginTitle" class="text-2xl font-bold text-center mb-6">
-Login Now
-</h2>
-
-<form id="loginForm" class="space-y-5">
-
-<!-- Email -->
-<div class="relative">
-<i class="fas fa-envelope absolute left-4 top-4 text-gray-500"></i>
-<input id="email" type="email" placeholder="example@mail.com"
-class="w-full py-3 pl-12 pr-4 rounded-xl input outline-none">
-</div>
-
-<!-- Password -->
-<div class="relative">
-<i class="fas fa-lock absolute left-4 top-4 text-gray-500"></i>
-<input id="password" type="password" placeholder="Password"
-class="w-full py-3 pl-12 pr-4 rounded-xl input outline-none">
-</div>
-
-<!-- Button -->
-<button id="loginBtn" class="w-full bg-blue-600 py-3 rounded-xl font-bold hover:bg-blue-500 transition">
-<span id="btnText">Login</span>
-</button>
-
-</form>
-
-<div class="text-center my-6 text-gray-500 text-xs" id="orText">OR</div>
-
-<button class="w-full bg-white text-black py-3 rounded-xl font-bold flex justify-center gap-2">
-<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5">
-<span id="googleText">Continue with Google</span>
-</button>
-
-</div>
-</div>
-
-<!-- Firebase -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
+        // Verified Config - Space Removed
+       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIEOaGWcI",
   authDomain: "wifi-core.firebaseapp.com",
@@ -107,61 +64,44 @@ const firebaseConfig = {
   appId: "1:631400272371:web:81443d140b50af68ad4286",
   measurementId: "G-L9L950G3MT"
 };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+        const langData = {
+            en: { subTitle: "Share your internet, Earn data credits.", loginTitle: "Login Now", btnText: "Login", orText: "Or", googleText: "Continue with Google", passPlace: "Password" },
+            bn: { subTitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।", loginTitle: "লগইন করুন", btnText: "লগইন করুন", orText: "অথবা", googleText: "Google দিয়ে চালিয়ে যান", passPlace: "পাসওয়ার্ড" }
+        };
 
-// Login
-document.getElementById('loginForm').addEventListener('submit', (e)=>{
-    e.preventDefault();
+        window.switchLang = (lang) => {
+            document.getElementById('subTitle').innerText = langData[lang].subTitle;
+            document.getElementById('loginTitle').innerText = langData[lang].loginTitle;
+            document.getElementById('btnText').innerText = langData[lang].btnText;
+            document.getElementById('orText').innerText = langData[lang].orText;
+            document.getElementById('googleText').innerText = langData[lang].googleText;
+            document.getElementById('password').placeholder = langData[lang].passPlace;
+            document.getElementById('enBtn').className = lang === 'en' ? 'text-blue-400 font-bold' : 'text-gray-400';
+            document.getElementById('bnBtn').className = lang === 'bn' ? 'text-blue-400 font-bold' : 'text-gray-400';
+        };
 
-    const email = email.value;
-    const password = password.value;
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-circle-notch animate-spin"></i>`;
 
-    signInWithEmailAndPassword(auth, email, password)
-    .then(()=>{
-        alert("Login Success");
-    })
-    .catch(err=>{
-        alert(err.message);
-    });
-});
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => { window.location.href = "dashboard.html"; })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                    btn.disabled = false;
+                    btn.innerHTML = `<span>Login</span> <i class="fas fa-paper-plane text-xs"></i>`;
+                });
+        });
 
-// Language system
-const data = {
-en:{
-subtitle:"Share your internet, Earn data credits.",
-login:"Login Now",
-btn:"Login",
-or:"OR",
-google:"Continue with Google",
-pass:"Password"
-},
-bn:{
-subtitle:"আপনার ইন্টারনেট শেয়ার করুন, ডাটা আয় করুন",
-login:"লগইন করুন",
-btn:"লগইন",
-or:"অথবা",
-google:"Google দিয়ে চালান",
-pass:"পাসওয়ার্ড"
-}
-};
-
-window.setLang = (lang)=>{
-document.getElementById("subtitle").innerText = data[lang].subtitle;
-document.getElementById("loginTitle").innerText = data[lang].login;
-document.getElementById("btnText").innerText = data[lang].btn;
-document.getElementById("orText").innerText = data[lang].or;
-document.getElementById("googleText").innerText = data[lang].google;
-document.getElementById("password").placeholder = data[lang].pass;
-
-document.getElementById("enBtn").className =
-lang==="en" ? "text-blue-400 font-bold" : "text-gray-400";
-
-document.getElementById("bnBtn").className =
-lang==="bn" ? "text-blue-400 font-bold" : "text-gray-400";
-}
-</script>
-
+        onAuthStateChanged(auth, (user) => { if (user) window.location.href = "dashboard.html"; });
+    </script>
 </body>
 </html>
