@@ -1,120 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WiFi-Charge | Login</title>
-  <style>
-    /* Shared Premium Styles */
-    body {
-      background: radial-gradient(circle at 10% 30%, #0a0c12, #030507);
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      color: #f5f0e6;
-    }
-    .gold-card {
-      max-width: 480px;
-      width: 90%;
-      background: rgba(18, 20, 28, 0.75);
-      backdrop-filter: blur(12px);
-      border-radius: 3rem;
-      border: 1px solid rgba(255, 215, 0, 0.35);
-      padding: 2.5rem 2rem;
-      text-align: center;
-    }
-    .brand h1 {
-      font-size: 2.4rem;
-      background: linear-gradient(135deg, #F9B713, #FFD966);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin: 0;
-    }
-    .phone-input-wrapper {
-      display: flex;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      margin-top: 20px;
-      overflow: hidden;
-    }
-    .country-code-select {
-      background: #12141c;
-      color: #FFD966;
-      border: none;
-      padding: 10px;
-      font-weight: bold;
-      outline: none;
-    }
-    #phoneNumber {
-      flex: 1;
-      background: transparent;
-      border: none;
-      padding: 15px;
-      color: white;
-      outline: none;
-    }
-    .pin-icon-btn {
-      background: linear-gradient(135deg, #F5BC2C, #CA9622);
-      border: none;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 2.5rem;
-      margin-top: 30px;
-      transition: 0.3s;
-    }
-    .pin-icon-btn:hover { transform: scale(1.1); }
-    .error-msg { color: #ff6b6b; font-size: 0.8rem; display: none; margin-top: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All-in-One Super App</title>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .splash-container {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .logo {
+            width: 150px;
+            /* আপনার গ্লোব ইমেজের নাম এখানে দিন */
+            box-shadow: 0 0 50px rgba(173, 216, 230, 0.3);
+            border-radius: 50%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .loader {
+            margin-top: 20px;
+            color: #b0e0e6;
+            font-family: Arial, sans-serif;
+            letter-spacing: 3px;
+            font-size: 14px;
+        }
+    </style>
+    
+    <script>
+        setTimeout(function() {
+            window.location.href = "dashboard.html";
+        }, 3000); 
+    </script>
 </head>
 <body>
 
-  <div class="gold-card">
-    <div class="brand">
-      <h1>⚡ WiFi-Charge</h1>
-      <p style="color: #FFD966; font-size: 0.8rem;">PREMIUM CORE ACCESS</p>
+    <div class="splash-container">
+        <img src="your-globe-image.png" alt="Super App" class="logo">
+        <div class="loader">প্রবেশ করা হচ্ছে...</div>
     </div>
-    
-    <form id="loginForm">
-      <div class="phone-input-wrapper">
-        <select id="countryCode" class="country-code-select">
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+880" selected>🇧🇩 +880</option>
-            <option value="+91">🇮🇳 +91</option>
-            <option value="+44">🇬🇧 +44</option>
-        </select>
-        <input type="tel" id="phoneNumber" placeholder="Enter number" required>
-      </div>
-      <div class="error-msg" id="phoneError">Please enter a valid number</div>
 
-      <button type="submit" class="pin-icon-btn">gold-finger-pint</button>
-      <p style="color: #FFD966; margin-top: 15px; font-weight: bold;">ENTER WITH GOLDEN PIN</p>
-    </form>
-  </div>
-
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const num = document.getElementById('phoneNumber').value;
-      const code = document.getElementById('countryCode').value;
-      
-      if(num.length < 7) {
-        document.getElementById('phoneError').style.display = 'block';
-        return;
-      }
-
-      // Store the number to use in dashboard.html
-      localStorage.setItem('userPhone', code + " " + num);
-      
-      // Redirect to dashboard
-      window. location.href = 'dashboard.html';
-    });
-  </script>
 </body>
 </html>
