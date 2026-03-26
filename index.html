@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,76 +7,90 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background: radial-gradient(circle at top, #1e3a8a, #000); min-height: 100vh; color: white; font-family: sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .input-field { background-color: rgba(0, 0, 0, 0.3); border: 1px solid #333; color: #ccc; }
-        .input-field:focus { border-color: #3b82f6; outline: none; }
-        .lang-link { cursor: pointer; transition: 0.3s; }
-        .lang-active { color: #3b82f6; font-weight: bold; }
+        body {
+            background: radial-gradient(circle at top, #1e3a8a, #0b0f1a);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+        }
+        .input-field {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center p-4">
+<body>
 
-    <div class="fixed top-6 right-6 text-sm text-gray-500 z-50">
-        <span id="langEN" class="lang-link">EN</span> | 
-        <span id="langBN" class="lang-link lang-active">বাংলা</span>
-    </div>
-
-    <div class="w-full max-w-lg text-center space-y-8 mt-10">
-        <div class="space-y-2">
-            <h1 class="text-5xl font-extrabold tracking-tight">WiFi-<span class="text-blue-500">Charge</span> Core</h1>
-            <p id="heroSubtitle" class="text-gray-400">আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।</p>
+    <div class="w-full max-w-md p-6">
+        <div class="flex justify-end mb-6 text-sm gap-2">
+            <button onclick="switchLang('en')" id="enBtn" class="text-blue-400 font-bold">EN</button>
+            <span class="text-gray-600">|</span>
+            <button onclick="switchLang('bn')" id="bnBtn" class="text-gray-400 hover:text-white transition">বাংলা</button>
         </div>
 
-        <div class="glass max-w-md mx-auto p-8 rounded-3xl shadow-2xl space-y-6">
-            <h2 id="loginTitle" class="text-2xl font-semibold">লগইন করুন</h2>
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black tracking-tighter italic">
+                WiFi-<span class="text-blue-500">Charge</span><br>
+                <span class="text-white">Core</span>
+            </h1>
+            <p id="subTitle" class="text-gray-400 mt-4 text-sm px-4">
+                Share your internet, Earn data credits.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 shadow-2xl">
+            <h2 id="loginTitle" class="text-2xl font-bold text-center mb-8">Login Now</h2>
             
-            <div class="space-y-4 text-left">
-                <div>
-                    <label id="labelEmail" class="block text-xs text-gray-500 mb-1 ml-1">ইমেইল ঠিকানা</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-3 text-gray-600"><i class="fas fa-envelope"></i></span>
-                        <input type="email" id="em" placeholder="example@mail.com" class="input-field w-full rounded-xl py-3 pl-12 pr-4 transition">
-                    </div>
+            <form id="loginForm" class="space-y-5">
+                <div class="relative">
+                    <i class="fas fa-envelope absolute left-4 top-4 text-gray-500"></i>
+                    <input type="email" id="email" placeholder="example@mail.com" required
+                        class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
                 </div>
 
-                <div>
-                    <label id="labelPass" class="block text-xs text-gray-500 mb-1 ml-1">পাসওয়ার্ড</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-3 text-gray-600"><i class="fas fa-lock"></i></span>
-                        <input type="password" id="pw" placeholder="••••••••" class="input-field w-full rounded-xl py-3 pl-12 pr-4 transition">
-                    </div>
+                <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-4 text-gray-500"></i>
+                    <input type="password" id="password" placeholder="Password" required
+                        class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
                 </div>
+
+                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                    <span id="btnText">Login</span> <i class="fas fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+
+            <div class="relative my-8 text-center">
+                <hr class="border-gray-800">
+                <span id="orText" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#16213e] px-4 text-xs text-gray-500 uppercase tracking-widest">Or</span>
             </div>
 
-            <button onclick="handleLoginAction()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl flex items-center justify-center space-x-2 transition">
-                <span id="btnLoginText">লগইন করুন</span>
-                <i class="fas fa-sign-in-alt"></i>
+            <button class="w-full bg-white text-gray-900 font-bold py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-200 transition">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" class="w-5 h-5">
+                <span id="googleText">Continue with Google</span>
             </button>
-
-            <div class="flex items-center space-x-2 text-gray-700">
-                <hr class="flex-grow border-gray-800">
-                <span id="textOr">অথবা</span>
-                <hr class="flex-grow border-gray-800">
-            </div>
-
-            <button onclick="gLogin()" class="w-full bg-white text-black font-bold py-3 rounded-xl flex items-center justify-center space-x-3 hover:bg-gray-200 transition">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
-                <span id="btnGoogleText">Google দিয়ে চালিয়ে যান</span>
-            </button>
-
-            <div class="pt-4 border-t border-gray-800 text-center text-gray-500 text-[10px] space-y-1">
-                <i class="fas fa-shield-alt text-green-600 text-lg"></i>
-                <p id="secureText">আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত।</p>
-            </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-      const firebaseConfig = {
+        // Your Correct Firebase Config
+        const firebaseConfig = {
             apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI",
             authDomain: "wifi-core.firebaseapp.com",
             projectId: "wifi-core",
@@ -85,51 +99,68 @@
             appId: "1:631400272371:web:81443d140b50af68ad4286",
             measurementId: "G-L9L950G3MT"
         };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
 
-        // 1. Google Login
-        window.gLogin = () => {
-            signInWithPopup(auth, provider)
-                .then(() => window.location.href = "dashboard.html")
-                .catch((err) => alert("গুগল লগইন এরর: " + err.message));
-        };
-
-        // 2. Password Login
-        window.handleLoginAction = () => {
-            const email = document.getElementById('em').value;
-            const password = document.getElementById('pw').value;
-            if (email && password) {
-                signInWithEmailAndPassword(auth, email, password)
-                    .then(() => window.location.href = "dashboard.html")
-                    .catch((err) => alert("ভুল ইমেইল বা পাসওয়ার্ড! " + err.message));
-            } else {
-                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড দিন।");
+        // Language Data
+        const langData = {
+            en: {
+                subTitle: "Share your internet, Earn data credits.",
+                loginTitle: "Login Now",
+                btnText: "Login",
+                orText: "Or",
+                googleText: "Continue with Google",
+                passPlace: "Password"
+            },
+            bn: {
+                subTitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।",
+                loginTitle: "লগইন করুন",
+                btnText: "লগইন করুন",
+                orText: "অথবা",
+                googleText: "Google দিয়ে চালিয়ে যান",
+                passPlace: "পাসওয়ার্ড"
             }
         };
 
-        // --- Language Logic ---
-        const uiText = {
-            bn: { subtitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।", loginTitle: "লগইন করুন", labelEmail: "ইমেইল ঠিকানা", labelPass: "পাসওয়ার্ড", btnLogin: "লগইন করুন", or: "অথবা", btnGoogle: "Google দিয়ে চালিয়ে যান", secure: "আপনার লগইন সম্পূর্ণ নিরাপদ। Firebase এবং Google এনক্রিপশন দ্বারা আপনার তথ্য সুরক্ষিত।" },
-            en: { subtitle: "Share your Internet, Earn Data Credits.", loginTitle: "Login Now", labelEmail: "Email Address", labelPass: "Password", btnLogin: "Sign In", or: "OR", btnGoogle: "Continue with Google", secure: "Your login is completely secure. Your data is protected by Firebase and Google encryption." }
+        window.switchLang = (lang) => {
+            document.getElementById('subTitle').innerText = langData[lang].subTitle;
+            document.getElementById('loginTitle').innerText = langData[lang].loginTitle;
+            document.getElementById('btnText').innerText = langData[lang].btnText;
+            document.getElementById('orText').innerText = langData[lang].orText;
+            document.getElementById('googleText').innerText = langData[lang].googleText;
+            document.getElementById('password').placeholder = langData[lang].passPlace;
+            
+            // Toggle Button Colors
+            document.getElementById('enBtn').className = lang === 'en' ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white';
+            document.getElementById('bnBtn').className = lang === 'bn' ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white';
         };
 
-        window.setLanguage = (lang) => {
-            document.getElementById('heroSubtitle').innerText = uiText[lang].subtitle;
-            document.getElementById('loginTitle').innerText = uiText[lang].loginTitle;
-            document.getElementById('labelEmail').innerText = uiText[lang].labelEmail;
-            document.getElementById('labelPass').innerText = uiText[lang].labelPass;
-            document.getElementById('btnLoginText').innerText = uiText[lang].btnLogin;
-            document.getElementById('textOr').innerText = uiText[lang].or;
-            document.getElementById('btnGoogleText').innerText = uiText[lang].btnGoogle;
-            document.getElementById('secureText').innerText = uiText[lang].secure;
-            document.getElementById('langBN').className = lang === 'bn' ? 'lang-link lang-active' : 'lang-link';
-            document.getElementById('langEN').className = lang === 'en' ? 'lang-link lang-active' : 'lang-link';
-        };
+        // Handle Login
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+            
+            btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i>`;
+            btn.disabled = true;
 
-        document.getElementById('langBN').onclick = () => setLanguage('bn');
-        document.getElementById('langEN').onclick = () => setLanguage('en');
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                    btn.innerHTML = `<span>Login</span> <i class="fas fa-paper-plane text-xs"></i>`;
+                    btn.disabled = false;
+                });
+        });
+
+        // Redirect if already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) window. location.href = "dashboard.html";
+        });
     </script>
 </body>
 </html>
