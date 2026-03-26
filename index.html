@@ -139,11 +139,11 @@ const firebaseConfig = {
             document.getElementById('btn-en').className = lang === 'en' ? 'text-blue-400' : 'hover:text-blue-400';
             document.getElementById('btn-bn').className = lang === 'bn' ? 'text-blue-400' : 'hover:text-blue-400';
         }
-  <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // --- IMPORTANT: INSERT YOUR FIREBASE KEYS HERE ---
+    // আপনার Firebase Config (এগুলো পরিবর্তন করবেন না যদি আগে থেকেই বসানো থাকে)
     const firebaseConfig = {
         apiKey: "YOUR_API_KEY",
         authDomain: "YOUR_AUTH_DOMAIN",
@@ -162,25 +162,24 @@ const firebaseConfig = {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // 1. Show the Loading Screen
+        // ১. লোডিং স্ক্রিন দেখাবে
         loadingOverlay.classList.remove('hidden');
         loadingOverlay.classList.add('flex');
 
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // 2. Talk to Firebase
+        // ২. Firebase এ লগইন রিকোয়েস্ট পাঠানো
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log("Login Success!");
-                // 3. Go to the Dashboard page
+                // ৩. লগইন সফল হলে সরাসরি dashboard.html এ নিয়ে যাবে
                 window.location.href = "dashboard.html"; 
             })
             .catch((error) => {
-                // 4. If error, hide loading and show message
+                // ৪. ভুল হলে লোডিং বন্ধ হবে এবং এরর দেখাবে
                 loadingOverlay.classList.add('hidden');
                 loadingOverlay.classList.remove('flex');
                 alert("Login Failed: " + error.message);
             });
     });
-</script> 
+</script>
