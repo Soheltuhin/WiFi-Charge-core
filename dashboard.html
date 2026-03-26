@@ -3,201 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge Premium Dashboard</title>
+    <title>MOHAMMAD SOHEL HOSSAIN - Dashboard</title>
     <style>
         :root {
             --neon-blue: #00f2fe;
-            --neon-green: #39ff14;
-            --deep-purple: #7000ff;
-            --glass: rgba(255, 255, 255, 0.15);
+            --neon-red: #ff0000;
+            --glass-bg: rgba(255, 255, 255, 0.1);
         }
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: radial-gradient(circle at top, #1e3a8a, #0f172a, #000000);
-            background-attachment: fixed;
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle at top, #1e3a8a, #0b0f19);
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* প্রিমিয়াম হেডার */
+        /* হেডার সেকশন */
         .header {
             width: 90%;
-            max-width: 500px;
-            padding: 25px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 30px 0;
         }
 
-        .user-profile {
+        .user-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .user-profile img {
-            width: 50px;
-            height: 50px;
+        .user-box img {
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        .user-name h2 {
+        .user-text h2 {
             margin: 0;
-            font-size: 16px;
-            background: linear-gradient(to right, #fff, var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 18px;
+            letter-spacing: 1px;
         }
 
-        /* উজ্জ্বল মেইন কার্ড */
-        .main-card {
-            width: 88%;
-            max-width: 420px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 35px 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.1);
+        /* বিশাল ইউটিউব কার্ড */
+        .youtube-hero {
+            width: 90%;
+            max-width: 450px;
+            aspect-ratio: 16/9;
+            background: var(--glass-bg);
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             margin-bottom: 30px;
+            transition: 0.3s;
         }
 
-        .credit-value {
-            font-size: 55px;
-            font-weight: 900;
-            color: var(--neon-green);
-            text-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
-            margin: 10px 0;
+        .youtube-hero:hover {
+            border-color: var(--neon-red);
+            transform: scale(1.02);
         }
 
-        /* ব্যাটারি চার্জিং এনিমেশন */
-        .battery-box {
-            width: 70%;
-            height: 35px;
-            border: 3px solid #444;
-            border-radius: 8px;
-            margin: 25px auto;
-            position: relative;
-            padding: 3px;
-        }
-
-        .battery-fill {
+        .youtube-hero img {
+            width: 100%;
             height: 100%;
-            width: 80%; /* আর্নিং লেভেল */
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
-            border-radius: 4px;
-            box-shadow: 0 0 20px var(--neon-blue);
-            animation: pulse 2s infinite;
+            object-fit: cover;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; box-shadow: 0 0 30px var(--neon-green); }
-            100% { opacity: 0.8; }
-        }
-
-        /* কুইক অ্যাকশন গ্রিড (অফিসিয়াল লিংক সহ) */
-        .action-grid {
+        /* অ্যাপ গ্রিড */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             width: 90%;
             max-width: 450px;
         }
 
-        .action-card {
-            background: rgba(255, 255, 255, 0.08);
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
             padding: 20px;
             border-radius: 20px;
+            text-align: center;
             text-decoration: none;
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             transition: 0.3s;
         }
 
-        .action-card:hover {
+        .card:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
             border-color: var(--neon-blue);
         }
 
-        .action-card img {
-            width: 40px;
+        .card img {
+            width: 45px;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
         }
 
-        .btn-home {
-            margin: 40px 0;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, var(--deep-purple), var(--neon-blue));
-            border-radius: 50px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(112, 0, 255, 0.4);
+        .card span {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ফোন বাটন স্পেশাল ডিজাইন */
+        .phone-card {
+            border: 1px solid var(--neon-blue);
+            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="user-profile">
+        <div class="user-box">
             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
-            <div class="user-name">
+            <div class="user-text">
                 <h2>MOHAMMAD SOHEL HOSSAIN</h2>
-                <span style="font-size: 10px; color: var(--neon-blue);">PREMIUM USER</span>
+                <span style="color: var(--neon-blue); font-size: 11px;">PREMIUM USER</span>
             </div>
         </div>
-        <div class="settings-icon">⚙️</div>
+        <div style="font-size: 20px;">⚙️</div>
     </div>
 
-    <div class="main-card">
-        <span style="letter-spacing: 2px; font-size: 12px; color: #aaa;">TOTAL EARNINGS</span>
-        <div class="credit-value">1,250.50</div>
-        
-        <div class="battery-box">
-            <div class="battery-fill"></div>
-        </div>
-        <p style="color: var(--neon-green); font-size: 12px;">⚡ WiFi Charging Active</p>
-    </div>
+    <a href="https://play.google.com/store/apps/details?id=com.google.android.youtube" class="youtube-hero">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube" style="width: 60%; height: auto;">
+    </a>
 
-    <div class="action-grid">
-        <a href="https://myaccount.google.com" class="action-card">
+    <div class="grid-container">
+        <a href="https://myaccount.google.com" class="card">
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
             <span>Google Account</span>
         </a>
 
-        <a href="https://www.facebook.com" class="action-card">
-            <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" alt="FB">
+        <a href="https://www.facebook.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/04/Facebook_f_logo_%282021%29.svg" alt="Facebook">
             <span>Facebook</span>
         </a>
 
-        <a href="https://gemini.google.com" class="action-card">
+        <a href="https://gemini.google.com" class="card">
             <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-gemini-icon.png" alt="Gemini">
             <span>Gemini AI</span>
         </a>
 
-        <a href="https://github.com" class="action-card">
-            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="filter: invert(1);">
-            <span>My Project</span>
+        <a href="https://play.google.com/store/apps/details?id=com.google.android.dialer" class="card phone-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Google_Phone_icon.svg" alt="Phone">
+            <span>Official Phone Call</span>
         </a>
     </div>
 
-    <a href="index.html" class="btn-home">Back to Home</a>
+    <p style="margin-top: 40px; color: #555; font-size: 12px;">© 2026 MDSOHEL SHORAF HOSSAIN</p>
 
 </body>
 </html>
