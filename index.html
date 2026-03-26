@@ -51,7 +51,24 @@
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+// Login Logic
+document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // This will trigger after a successful login
+            console.log("Success!");
+            // Redirect the user to your main app page
+            window.location.href = "dashboard.html"; 
+        })
+        .catch((error) => {
+            // Show error if login fails
+            alert("Error: " + error.message);
+        });
+});
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // This is the important line for the redirection  
