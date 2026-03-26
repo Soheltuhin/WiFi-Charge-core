@@ -1,206 +1,236 @@
+
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>WiFi-Charge | English Version</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #000000;
+            --sky-blue: #87CEEB;
+            --hill-green: #228B22;
             --gold: #D4AF37;
-            --emergency-red: #FF0000;
-            --border-color: #eeeeee;
+            --sos-red: #FF0000;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Inter', sans-serif; overflow: hidden; }
+
+        /* 1. Welcome Screen Style */
+        #welcome-screen {
+            position: fixed; width: 100%; height: 100%; background: var(--sky-blue);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100;
+            transition: transform 0.8s ease-in-out;
+        }
+        .hills-bg {
+            position: absolute; bottom: 0; width: 100%; height: 40%; background: var(--hill-green);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0; transform: scaleX(1.5); z-index: 1;
+        }
+        .welcome-content { z-index: 10; text-align: center; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        
+        /* Fingerprint Button */
+        .fingerprint-container { position: relative; width: 100px; height: 100px; margin-top: 20px; z-index: 15; }
+        .fingerprint-btn {
+            width: 100%; height: 100%; border: 4px solid var(--gold); border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9); color: var(--gold); font-size: 50px;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.5); position: relative; overflow: hidden;
+        }
+        .scan-line {
+            position: absolute; width: 100%; height: 4px; background: var(--gold);
+            box-shadow: 0 0 10px var(--gold); top: -100%; display: none;
+        }
+        @keyframes scan { 0% { top: 0%; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+
+        /* Butterfly Animation */
+        .butterfly-container { position: absolute; width: 100%; height: 100%; z-index: 5; pointer-events: none; }
+        .butterfly { position: absolute; width: 25px; height: 25px; opacity: 0; transition: opacity 0.5s; }
+        @keyframes flyAway {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(0.5); opacity: 0; }
         }
 
-        /* Header / Real Time Clock */
-        header {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
+        /* 2. Dashboard Screen Style */
+        #dashboard-screen {
+            display: none; height: 100vh; flex-direction: column; background: white; z-index: 50;
         }
+        header { padding: 25px; text-align: center; border-bottom: 1px solid #eee; }
+        #clock { font-size: 2.8rem; font-weight: 800; color: black; }
+        .container { flex: 1; padding: 20px; text-align: center; overflow-y: auto; }
 
-        #clock {
-            font-size: 2.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
+        /* Wallet Section */
+        .wallet-card {
+            border: 2px solid #eee; padding: 15px; border-radius: 20px;
+            background: #fff; margin: 20px auto; max-width: 250px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-
-        /* Dashboard Container */
-        .container {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
+        .progress-container {
+            width: 100%; height: 10px; background: #eee;
+            border-radius: 5px; margin: 10px 0; overflow: hidden;
         }
+        .progress-bar { width: 0%; height: 100%; background: var(--hill-green); transition: width 0.3s; }
+        .data-text { font-size: 18px; font-weight: bold; color: #333; }
 
-        /* Status Cards */
-        .status-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .card i {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* Golden Fingerprint Icon */
-        .admin-section {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .fingerprint-icon {
-            font-size: 50px;
-            color: var(--gold);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .fingerprint-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Emergency Button */
-        .sos-container {
-            text-align: center;
-            margin-top: 30px;
+        .charge-btn {
+            background: var(--gold); border: none; padding: 8px 15px;
+            border-radius: 10px; color: white; font-weight: bold; cursor: pointer; margin-top: 5px;
         }
 
         .sos-btn {
-            background-color: var(--emergency-red);
-            color: white;
-            border: none;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-            cursor: pointer;
-            animation: pulse 2s infinite;
+            background: var(--sos-red); color: white; border: none; width: 110px; height: 110px;
+            border-radius: 50%; font-weight: bold; font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3); transition: 0.3s;
         }
+        .sos-btn:active { transform: scale(0.9); }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-        }
-
-        /* Bottom Navigation (WhatsApp Style) */
-        nav {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            border-top: 1px solid var(--border-color);
-            background: white;
-        }
-
-        nav i {
-            font-size: 1.5rem;
-            color: #555;
-            cursor: pointer;
-        }
-
-        nav i:hover {
-            color: var(--text-color);
-        }
-
+        nav { display: flex; justify-content: space-around; padding: 18px; border-top: 1px solid #eee; background: #fff; }
+        nav i { font-size: 1.6rem; color: #888; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div id="clock">12:00:00</div>
-        <small>Real Time Status</small>
-    </header>
-
-    <div class="container">
-        
-        <div class="admin-section">
-            <i class="fa-solid fa-fingerprint fingerprint-icon"></i>
-            <p><strong>গ্রুপ এডমিন</strong></p>
-        </div>
-
-        <div class="status-row">
-            <div class="card">
-                <i class="fa-solid fa-wifi" style="color: #007AFF;"></i>
-                <span>ডাটা ওয়ালেট</span>
-                <div style="font-weight:bold; margin-top:5px;">৮৫% চার্জড</div>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-phone" style="color: #28a745;"></i>
-                <span>অডিও কলিং</span>
-                <div style="font-size: 12px; color: gray;">শুধুমাত্র ভয়েস</div>
+    <div id="welcome-screen">
+        <div class="hills-bg"></div>
+        <div class="butterfly-container" id="butterflyContainer"></div>
+        <div class="welcome-content">
+            <h1 style="font-size: 3.5rem; margin:0;">Welcome</h1>
+            <p style="font-size: 1.5rem;">WiFi-Charge</p>
+            <div class="fingerprint-container">
+                <button class="fingerprint-btn" id="fingerprintBtn">
+                    <i class="fa-solid fa-fingerprint"></i>
+                    <div class="scan-line" id="scanLine"></div>
+                </button>
+                <p style="color: var(--gold); font-weight: bold; margin-top: 15px; text-shadow: none;">Tap to Scan</p>
             </div>
         </div>
-
-        <div class="sos-container">
-            <button class="sos-btn" onclick="triggerSOS()">SOS<br>বিপদ সংকেত</button>
-            <p style="margin-top:15px; font-size: 14px; color: #555;">এক চাপে মেসেজ, দ্বিতীয় চাপে লোকেশন</p>
-        </div>
-
     </div>
 
-    <nav>
-        <i class="fa-solid fa-comment"></i>
-        <i class="fa-solid fa-users"></i>
-        <i class="fa-solid fa-circle-notch"></i>
-        <i class="fa-solid fa-gear"></i>
-    </nav>
+    <div id="dashboard-screen">
+        <header>
+            <div id="clock">00:00:00 AM</div>
+        </header>
+
+        <div class="container">
+            <i class="fa-solid fa-fingerprint" style="font-size: 40px; color: var(--gold);"></i>
+            <p style="margin: 5px 0 15px;"><strong>Group Admin</strong></p>
+
+            <div class="wallet-card">
+                <i class="fa-solid fa-wifi" style="color: var(--hill-green); font-size: 20px;"></i>
+                <div class="data-text"><span id="data-val">0</span> MB / 1024 MB</div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="data-progress"></div>
+                </div>
+                <button class="charge-btn" onclick="startCharging()">Charge Data</button>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button class="sos-btn" onclick="triggerSOS()">SOS</button>
+                <p id="sosAlert" style="color: red; font-size: 14px; margin-top: 15px; font-weight: bold; min-height: 20px;"></p>
+            </div>
+        </div>
+
+        <nav>
+            <i class="fa-solid fa-message" style="color: black;"></i>
+            <i class="fa-solid fa-users"></i>
+            <i class="fa-solid fa-gear"></i>
+        </nav>
+    </div>
 
     <script>
-        // রিয়েল টাইম ক্লক ফাংশন
+        const fingerprintBtn = document.getElementById('fingerprintBtn');
+        const scanLine = document.getElementById('scanLine');
+        const butterflyContainer = document.getElementById('butterflyContainer');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+
+        // Butterfly Animation Logic
+        function createButterflies() {
+            const emojis = ['🦋', '✨', '🌸'];
+            for (let i = 0; i < 25; i++) {
+                const b = document.createElement('div');
+                b.classList.add('butterfly');
+                b.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                b.style.fontSize = '25px';
+                
+                const rect = fingerprintBtn.getBoundingClientRect();
+                const startX = rect.left + (rect.width / 2);
+                const startY = rect.top + (rect.height / 2);
+                
+                b.style.left = startX + 'px';
+                b.style.top = startY + 'px';
+
+                b.style.setProperty('--tx', `${(Math.random() - 0.5) * 600}px`);
+                b.style.setProperty('--ty', `${-Math.random() * 500 - 100}px`);
+                b.style.setProperty('--tr', `${(Math.random() - 0.5) * 720}deg`);
+
+                b.style.animation = `flyAway 1.5s ease-out ${Math.random() * 0.3}s forwards`;
+                butterflyContainer.appendChild(b);
+                setTimeout(() => b.remove(), 2000);
+            }
+        }
+
+        // Screen Transition
+        fingerprintBtn.addEventListener('click', function() {
+            scanLine.style.display = 'block';
+            scanLine.style.animation = 'scan 1s ease-in-out';
+            createButterflies();
+
+            setTimeout(() => {
+                welcomeScreen.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                    dashboardScreen.style.display = 'flex';
+                }, 800);
+            }, 1200);
+        });
+
+        // 1GB Charging Logic
+        let currentMB = 0;
+        const maxMB = 1024;
+        function startCharging() {
+            if (currentMB >= maxMB) {
+                alert("Wallet Full! (1GB Reached)");
+                return;
+            }
+            const interval = setInterval(() => {
+                if (currentMB < maxMB) {
+                    currentMB += 8; 
+                    if (currentMB > maxMB) currentMB = maxMB;
+                    document.getElementById('data-val').innerText = currentMB;
+                    document.getElementById('data-progress').style.width = (currentMB / maxMB) * 100 + '%';
+                } else {
+                    clearInterval(interval);
+                }
+            }, 50);
+        }
+
+        // 12-Hour Real-time Clock
         function updateClock() {
             const now = new Date();
-            let hours = now.getHours();
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM': 'AM';
-            
-            hours = hours % 12;
-            hours = hours? hours : 12; // 0 কে 12 করা
-            const strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
-            
-            document.getElementById('clock').textContent = strTime;
+            let h = now.getHours();
+            let m = now.getMinutes();
+            let s = now.getSeconds();
+            let ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+            document.getElementById('clock').innerText = `${h}:${m}:${s} ${ampm}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        // SOS ফাংশনালিটি সিমুলেশন
+        // SOS Protocol
         let sosCount = 0;
         function triggerSOS() {
             sosCount++;
-            if(sosCount === 1) {
-                alert("প্রথম ধাপ: পরিবারের গ্রুপে 'আমি বিপদে আছি' মেসেজ পাঠানো হয়েছে।");
-            } else if(sosCount === 2) {
-                alert("দ্বিতীয় ধাপ: আপনার লাইভ লোকেশন এবং ভয়েস স্ন্যাপশট শেয়ার করা হচ্ছে!");
-                sosCount = 0; // রিসেট
+            const alertBox = document.getElementById('sosAlert');
+            if(sosCount === 1) alertBox.innerText = "⚠️ STEP 1: Emergency Message Sent!";
+            else {
+                alertBox.innerText = "🚨 STEP 2: Sharing Live Location & Voice!";
+                sosCount = 0;
             }
         }
     </script>
