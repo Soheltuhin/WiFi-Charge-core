@@ -1,48 +1,695 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WiFi-Charge Core | Welcome</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>WiFi Charge | Gold Access</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #add8e6; /* Light Blue background like image_1.png */
-            overflow: hidden;
-            color: white;
-        }
+    body {
+      background: radial-gradient(circle at 10% 30%, #0a0c12, #030507);
+      font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
 
-        /* The green 'hill' shape at the bottom */
-        .background-bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background-color: #3b8c36; /* Rich Green like image_1.png */
-            border-radius: 50% 50% 0 0 / 150px 150px 0 0; /* Curves like a hill */
-            z-index: 1;
-        }
+    /* main glass card */
+    .gold-card {
+      max-width: 480px;
+      width: 100%;
+      background: rgba(18, 20, 28, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 215, 0, 0.1) inset, 0 0 20px rgba(255, 215, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
 
-        /* The main content container */
-        .content {
-            position: relative;
-            z-index: 2; /* Sits on top of the background green */
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 90vh; /* Takes up most of the height */
-            padding-top: 10vh; /* Spaces top text from the edge */
+    .gold-card:hover {
+      transform: scale(1.01);
+      border-color: rgba(255, 215, 0, 0.7);
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(255, 215, 0, 0.3) inset;
+    }
+
+    /* inner content */
+    .card-inner {
+      padding: 2rem 1.8rem 2.5rem;
+    }
+
+    /* brand header */
+    .brand {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .brand h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #F9B713 0%, #FFD966 40%, #F5A623 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .brand-tag {
+      font-size: 0.9rem;
+      color: #FFD966;
+      background: rgba(255, 215, 0, 0.12);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      margin-top: 8px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-tag span {
+      color: #FFE9A7;
+    }
+
+    /* description line */
+    .sub-motto {
+      text-align: center;
+      color: #bbb8b0;
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px dashed rgba(255, 215, 0, 0.3);
+      display: inline-block;
+      width: 100%;
+      padding-bottom: 0.6rem;
+    }
+
+    /* form group */
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #FFDE9E;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    .input-label i {
+      font-size: 1.2rem;
+    }
+
+    .phone-input-wrapper {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 60px;
+      border: 1.5px solid rgba(255, 200, 50, 0.5);
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .phone-input-wrapper:focus-within {
+      border-color: #F5B81B;
+      box-shadow: 0 0 0 3px rgba(245, 184, 27, 0.3);
+      background: rgba(10, 10, 15, 0.8);
+    }
+
+    .country-code {
+      padding: 0 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #FFD966;
+      border-right: 1px solid rgba(255, 215, 0, 0.4);
+      background: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    #phoneNumber {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      color: #f5f0e6;
+      font-weight: 500;
+      outline: none;
+    }
+
+    #phoneNumber::placeholder {
+      color: #a0987a;
+      font-weight: 400;
+      font-size: 0.9rem;
+    }
+
+    /* gold pin icon + button */
+    .golden-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2rem 0 1.8rem;
+    }
+
+    .pin-icon-btn {
+      background: radial-gradient(circle at 30% 20%, #F5BC2C, #CA9622);
+      border: none;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(255, 230, 120, 0.6), 0 0 0 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.2s;
+      margin-bottom: 1rem;
+    }
+
+    .pin-icon-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 18px 28px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 235, 140, 0.9);
+      background: radial-gradient(circle at 35% 25%, #FFCF4A, #E5A812);
+    }
+
+    .pin-icon-btn:active {
+      transform: scale(0.97);
+    }
+
+    .pin-icon {
+      font-size: 3.5rem;
+      filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.4));
+      color: #2f2412;
+      text-shadow: 0 1px 0 #FFE39F;
+    }
+
+    .btn-text {
+      font-size: 1rem;
+      font-weight: 600;
+      background: linear-gradient(120deg, #FFD966, #F5BC2C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+
+    /* alternate or extra info */
+    .alternative-access {
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 200, 80, 0.2);
+    }
+
+    .alternative-access p {
+      font-size: 0.75rem;
+      color: #b9af8a;
+      margin-bottom: 0.6rem;
+    }
+
+    .external-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .external-links a {
+      color: #F7D44A;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: 0.2s;
+      background: rgba(255, 200, 50, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+    }
+
+    .external-links a:hover {
+      background: rgba(255, 200, 70, 0.3);
+      color: #FFF0B5;
+      text-decoration: underline;
+    }
+
+    /* error message */
+    .error-msg {
+      text-align: center;
+      background: rgba(220, 53, 69, 0.2);
+      backdrop-filter: blur(5px);
+      border-radius: 60px;
+      padding: 0.5rem;
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      color: #ffb4a2;
+      border-left: 3px solid #F5A623;
+      display: none;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    /* dashboard preview hidden */
+    .dashboard-placeholder {
+      display: none;
+    }
+
+    /* responsive touches */
+    @media (max-width: 500px) {
+      .card-inner {
+        padding: 1.6rem;
+      }
+      .pin-icon-btn {
+        width: 75px;
+        height: 75px;
+      }
+      .pin-icon {
+        font-size: 2.8rem;
+      }
+      .brand h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    /* additional gold shimmer */
+    @keyframes subtleGlow {
+      0% { box-shadow: 0 0 5px rgba(255, 200, 0, 0.2); }
+      100% { box-shadow: 0 0 12px rgba(255, 200, 0, 0.5); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="gold-card" id="loginCard">
+  <div class="card-inner">
+    <div class="brand">
+      <h1>⚡ WiFi-Charge</h1>
+      <div class="brand-tag">
+        <span>वार्ता Core</span>  •  গোল্ডেন এক্সেস
+      </div>
+    </div>
+    <div class="sub-motto">
+      আপনার ইন্টারনেট পেয়ার করুন, ডাটা জেডিট ইনকোম করুন।
+    </div>
+
+    <!-- login form - only phone number, no OTP field -->
+    <form id="loginForm" action="#" method="post">
+      <div class="form-group">
+        <div class="input-label">
+          <span>📞</span> <span>মোবাইল নম্বর</span>
+        </div>
+        <div class="phone-input-wrapper">
+          <span class="country-code">+880</span>
+          <input type="tel" id="phoneNumber" name="phone" placeholder="1XXXXXXXXX" autocomplete="off" value="">
+        </div>
+        <div class="error-msg" id="phoneError">
+          ❌ দয়া করে একটি বৈধ মোবাইল নম্বর দিন (উদা: 1XXXXXXXXX)
+        </div>
+      </div>
+
+      <!-- GOLD PIN ICON BUTTON (only number based) -->
+      <div class="golden-action">
+        <button type="submit" class="pin-icon-btn" id="pinSubmitBtn" aria-label="সোনালী পিন আইকন দিয়ে লগইন">
+          <div class="pin-icon">📍</div>
+        </button>
+        <span class="btn-text">সোনালী পিন দিয়ে প্রবেশ করুন</span>
+        <p style="font-size: 0.7rem; color:#B89A40; margin-top: 8px;">OTP ছাড়া • শুধু নাম্বার</p>
+      </div>
+    </form>
+
+    <div class="alternative-access">
+      <p>অথবা</p>
+      <div class="external-links">
+        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Google</a>
+        <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">দিকে চালিয়ে যান</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD HTML (hidden initially, will be shown after successful login) -->
+<div id="dashboardContainer" style="display: none;">
+  <div class="dashboard-wrapper">
+    <div class="dashboard-gold">
+      <div class="dashboard-header">
+        <div class="logo-area">
+          <span class="dash-icon">⚡</span>
+          <h2>WiFi-Charge DASHBOARD</h2>
+        </div>
+        <button id="logoutBtn" class="logout-gold">🚪 প্রস্থান</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📶</div>
+          <div class="stat-info">
+            <h3>বর্তমান প্যাকেজ</h3>
+            <p>আনলিমিটেড গোল্ড</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💎</div>
+          <div class="stat-info">
+            <h3>ডাটা ব্যালেন্স</h3>
+            <p>∞ GB (প্রিমিয়াম)</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📱</div>
+          <div class="stat-info">
+            <h3>রেজিস্টার্ড নম্বর</h3>
+            <p id="displayPhone">+8801XXXXXXXXX</p>
+          </div>
+        </div>
+      </div>
+      <div class="recent-section">
+        <div class="section-title">
+          <span>🏆 গোল্ডেন সেশন</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon">🔑</div>
+          <div class="activity-detail">সোনালী পিন আইকন দিয়ে সফলভাবে প্রবেশ</div>
+          <div class="activity-time">এখনই</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon">📡</div>
+          <div class="activity-detail">ইন্টারনেট পেয়ারিং সক্রিয়</div>
+          <div class="activity-time">লাইভ</div>
+        </div>
+      </div>
+      <div class="footer-note">
+        <p>✨ ওয়াইফাই চার্জ • গোল্ডেন কোর এক্সেস ✨</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* dashboard specific styles (golden premium look) */
+  .dashboard-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(ellipse at 30% 40%, #0f0e12, #010101);
+  }
+  .dashboard-gold {
+    max-width: 800px;
+    width: 100%;
+    background: rgba(22, 22, 28, 0.85);
+    backdrop-filter: blur(14px);
+    border-radius: 2.5rem;
+    border: 1px solid rgba(255, 210, 60, 0.7);
+    box-shadow: 0 30px 40px rgba(0,0,0,0.5), 0 0 0 2px rgba(255, 200, 0, 0.2) inset;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: rgba(0,0,0,0.4);
+    border-bottom: 1px solid #F5B81B;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .logo-area .dash-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 0 4px gold);
+  }
+  .logo-area h2 {
+    font-size: 1.5rem;
+    background: linear-gradient(130deg, #FFE0A3, #F5B81B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+  }
+  .logout-gold {
+    background: rgba(245, 184, 27, 0.15);
+    border: 1px solid #F5B81B;
+    padding: 0.5rem 1.2rem;
+    border-radius: 60px;
+    color: #FFD966;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.9rem;
+  }
+  .logout-gold:hover {
+    background: #F5B81B;
+    color: #1e1a0c;
+    box-shadow: 0 0 8px gold;
+  }
+  .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  .stat-card {
+    flex: 1;
+    min-width: 160px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 1.8rem;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(255, 200, 70, 0.4);
+    backdrop-filter: blur(4px);
+  }
+  .stat-icon {
+    font-size: 2.3rem;
+  }
+  .stat-info h3 {
+    font-size: 0.85rem;
+    color: #EAC76F;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .stat-info p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FFF2CF;
+  }
+  .recent-section {
+    margin: 0.5rem 2rem 2rem 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 1.5rem;
+    padding: 1.2rem;
+  }
+  .section-title {
+    color: #FFD966;
+    font-weight: bold;
+    border-left: 4px solid #F5B81B;
+    padding-left: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .activity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(245, 184, 27, 0.2);
+  }
+  .activity-icon {
+    font-size: 1.3rem;
+    width: 40px;
+  }
+  .activity-detail {
+    flex: 1;
+    color: #e6dcc0;
+    font-weight: 500;
+  }
+  .activity-time {
+    color: #F5B81B;
+    font-size: 0.75rem;
+    background: rgba(0,0,0,0.5);
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+  }
+  .footer-note {
+    text-align: center;
+    padding: 1rem 2rem 1.5rem;
+    font-size: 0.75rem;
+    color: #C9AF5C;
+    border-top: 1px dashed rgba(255,200,70,0.3);
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 600px) {
+    .stats-grid { flex-direction: column; }
+    .dashboard-header { flex-direction: column; gap: 12px; align-items: stretch; text-align: center; }
+  }
+</style>
+
+<script>
+  (function() {
+    // DOM elements
+    const loginCard = document.getElementById('loginCard');
+    const dashboardContainer = document.getElementById('dashboardContainer');
+    const loginForm = document.getElementById('loginForm');
+    const phoneInput = document.getElementById('phoneNumber');
+    const errorMsgDiv = document.getElementById('phoneError');
+    const displayPhoneSpan = document.getElementById('displayPhone');
+
+    // Helper: validate BD-style mobile number (after +880) -> exactly 10 digits? 
+    // In the mock: placeholder shows 1XXXXXXXXX (10 digits after 880). We'll accept any numeric length between 9 to 12 after +880? 
+    // But to be user friendly: number must contain only digits, and total length after +880 should be between 9 and 12 digits (common mobile)
+    // However strict: +8801XXXXXXXXX => after +880 we expect 10 digits (starting with 1). But we will accept generic numeric with 9-12 digits.
+    // Also allow if user types full number including +880? We'll just get raw value and clean.
+    function isValidPhoneNumber(rawValue) {
+      let cleaned = rawValue.trim();
+      if (cleaned === "") return false;
+      // remove any non-digit except maybe leading '+' but we will handle
+      let digitsOnly = cleaned.replace(/\D/g, '');
+      // if user entered something like 8801XXXXXXXXX or just 1XXXXXXXXX
+      // Our prefix is +880 shown separately but input field value should be the local part.
+      // According to design: country code +880 is fixed, user types e.g., 1712345678
+      // So we validate digits length between 9 to 12 (BD numbers usually 10 digits after 880, but sometimes 9 digits? flexible)
+      if (digitsOnly.length >= 8 && digitsOnly.length <= 13) {
+        // also must not be all zeros
+        if (/^0+$/.test(digitsOnly)) return false;
+        return true;
+      }
+      return false;
+    }
+
+    // sanitize and extract clean number display
+    function getCleanNumber(raw) {
+      let digits = raw.replace(/\D/g, '');
+      // if digits length is more than 10 we limit first 10 for display, but just store
+      if (digits.length === 0) return "not provided";
+      // show last 10 digits for beauty? but we just show full with +880
+      let prefix = "+880";
+      // if user accidentally includes 880 at beginning we trim extra prefix.
+      if (digits.startsWith("880") && digits.length > 10) {
+        let localPart = digits.slice(3);
+        return prefix + localPart;
+      } else {
+        return prefix + digits;
+      }
+    }
+
+    // submit handler: only phone number required, no OTP check.
+    function handleLogin(event) {
+      event.preventDefault();
+
+      let phoneRaw = phoneInput.value.trim();
+      if (!isValidPhoneNumber(phoneRaw)) {
+        errorMsgDiv.classList.add('show');
+        // add shake animation to input wrapper
+        const wrapper = document.querySelector('.phone-input-wrapper');
+        wrapper.style.transition = '0.1s';
+        wrapper.style.borderColor = '#E67E22';
+        setTimeout(() => {
+          wrapper.style.borderColor = 'rgba(255, 200, 50, 0.5)';
+        }, 400);
+        return;
+      }
+      errorMsgDiv.classList.remove('show');
+      // valid phone number: store & proceed to dashboard
+      const formattedNumber = getCleanNumber(phoneRaw);
+      // update dashboard with phone number
+      if (displayPhoneSpan) {
+        displayPhoneSpan.innerText = formattedNumber;
+      }
+      // optional: save to localStorage for session
+      sessionStorage.setItem('wifi_charge_user', formattedNumber);
+      // transition to dashboard
+      loginCard.style.display = 'none';
+      dashboardContainer.style.display = 'block';
+      document.body.style.background = "radial-gradient(circle at 20% 30%, #0b0b12, #020202)";
+    }
+
+    // logout function: back to login page (preserve clean state)
+    function logout() {
+      dashboardContainer.style.display = 'none';
+      loginCard.style.display = 'block';
+      document.body.style.background = "radial-gradient(circle at 10% 30%, #0a0c12, #030507)";
+      // reset form fields
+      phoneInput.value = "";
+      errorMsgDiv.classList.remove('show');
+      // clear any session if needed
+      sessionStorage.removeItem('wifi_charge_user');
+    }
+
+    // attach event to login form
+    loginForm.addEventListener('submit', handleLogin);
+
+    // Attach logout button event (dynamic because dashboard is initially hidden, but we add the event after DOM ready)
+    // Since the logout button exists inside the dashboard container, we can listen with event delegation or get the element later
+    function bindLogout() {
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.removeEventListener('click', logout);
+        logoutBtn.addEventListener('click', logout);
+      }
+    }
+    bindLogout();
+
+    // Also, if the dashboard gets recreated? Not needed, but if login happens logout button exists.
+    // Observer to rebind when dashboard appears? but logout button persists. After login, we ensure the  event is attached.
+    // additional: when we switch display, make sure logout click works
+    const observer = new MutationObserver(function(mutations) {
+      if (dashboardContainer.style.display === 'block') {
+        bindLogout();
+      }
+    });
+    observer.observe(dashboardContainer, { attributes: true, attributeFilter: ['style'] });
+    observer.observe(loginCard, { attributes: true, attributeFilter: ['style'] });
+    // initial bind in case dashboard is hidden, but button exists.
+    bindLogout();
+
+    // extra: for demonstration, we could store or simulate gold pin icon feedback
+    const pinBtn = document.getElementById('pinSubmitBtn');
+    if (pinBtn) {
+      pinBtn.addEventListener('click', (e) => {
+        // The form submission is already handled via abutton-typee submit.
+        // but just tiny gold ripple feedback
+        pinBtn.style.transform = 'scale(0.98)';
+        setTimeout(() => { pinBtn.style.transform = ''; }, 120);
+      });
+    }
+
+    // edge: pre-fill demo optional? Not required, but avoid accidental prefilled
+    // also add live validation on input to remove errors when typing
+    phoneInput.addEventListener('input', function() {
+      errorMsgDiv.classList.remove('show');
+      const wrapper = document.querySelector('.phone-input-wrapper');
+      if(wrapper) wrapper .style.borderColor = 'rgba(255, 200, 50, 0.5)';
+    });
+
+    //restriction-numeric but allow only digits for better ux? But we still validate anyway
+    phoneInput.addEventListener('keypress', function(e) {
+      const charCode = e.which ? e.whic: e.keyCode;
+      if (charCode !== 8 && charCode !== 0 && (charCode < 48 || charCode > 57)) {
+        e.preventDefault();
+      }
+    });
+    // auto prefix hint: user does not need to type +880, just local digits
+    // set placeholder reminder
+    phoneInput.setAttribute('placeholder', '1XXXXXXXXX (মোবাইল নম্বর)');
+    // ensure initial state: login visible, dashboard hidden
+    loginCard.style.display = 'block';
+    dashboardContainer.style.display = 'none';
+    // style for body background
+    document.body.style.background = "radial-gradient(circle at 10% 30%, #0a0c12, #030507)";
+  })();
+</script>
+</body>
+</html>
