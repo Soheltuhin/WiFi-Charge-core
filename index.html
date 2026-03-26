@@ -138,6 +138,23 @@ const firebaseConfig = {
             document.getElementById('btn-en').className = lang === 'en' ? 'text-blue-400' : 'hover:text-blue-400';
             document.getElementById('btn-bn').className = lang === 'bn' ? 'text-blue-400' : 'hover:text-blue-400';
         }
-    </script>
-</body>
-</html>
+    
+});script>   
+// Login Logic
+document.getElementById('login-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // This will trigger after a successful login
+            console.log("Success!");
+            // Redirect the user to your main app page
+            window.location.href = "dashboard.html"; 
+        })
+        .catch((error) => {
+            // Show error if login fails
+            alert("Error: " + error.message);
+        });
+});
