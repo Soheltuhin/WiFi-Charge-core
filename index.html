@@ -6,13 +6,43 @@
     <title>WiFi-Charge Core | Welcome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+        }
+
+        body {
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #2c3e50;
+            background-color: #add8e6; /* Light Blue background like image_1.png */
+            overflow: hidden;
+            color: white;
+        }
+
+        /* The green 'hill' shape at the bottom */
+        .background-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: #3b8c36; /* Rich Green like image_1.png */
+            border-radius: 50% 50% 0 0 / 150px 150px 0 0; /* Curves like a hill */
+            z-index: 1;
+        }
+
+        /* The main content container */
+        .content {
+            position: relative;
+            z-index: 2; /* Sits on top of the background green */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 90vh; /* Takes up most of the height */
+            padding-top: 10vh; /* Spaces top text from the edge */
