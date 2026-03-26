@@ -7,30 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            background: radial-gradient(circle at top, #1e3a8a, #0b0f1a);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            color: white;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2rem;
-        }
-        .input-field {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .input-field:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-        }
+        body { background: radial-gradient(circle at top, #1e3a8a, #0b0f1a); min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; color: white; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 2rem; }
+        .input-field { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; color: white; }
     </style>
 </head>
 <body>
@@ -43,41 +22,26 @@
         </div>
 
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-black tracking-tighter italic">
-                WiFi-<span class="text-blue-500">Charge</span><br>
-                <span class="text-white">Core</span>
-            </h1>
-            <p id="subTitle" class="text-gray-400 mt-4 text-sm px-4">
-                Share your internet, Earn data credits.
-            </p>
+            <h1 class="text-4xl font-black tracking-tighter italic">WiFi-<span class="text-blue-500">Charge</span><br><span class="text-white">Core</span></h1>
+            <p id="subTitle" class="text-gray-400 mt-4 text-sm px-4">Share your internet, Earn data credits.</p>
         </div>
 
         <div class="glass-card p-8 shadow-2xl">
             <h2 id="loginTitle" class="text-2xl font-bold text-center mb-8">Login Now</h2>
-            
             <form id="loginForm" class="space-y-5">
                 <div class="relative">
                     <i class="fas fa-envelope absolute left-4 top-4 text-gray-500"></i>
-                    <input type="email" id="email" placeholder="example@mail.com" required
-                        class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
+                    <input type="email" id="email" placeholder="example@mail.com" required class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
                 </div>
-
                 <div class="relative">
                     <i class="fas fa-lock absolute left-4 top-4 text-gray-500"></i>
-                    <input type="password" id="password" placeholder="Password" required
-                        class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
+                    <input type="password" id="password" placeholder="Password" required class="w-full input-field py-3.5 pl-12 pr-4 rounded-xl text-sm outline-none">
                 </div>
-
-                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center justify-center gap-2">
+                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
                     <span id="btnText">Login</span> <i class="fas fa-paper-plane text-xs"></i>
                 </button>
             </form>
-
-            <div class="relative my-8 text-center">
-                <hr class="border-gray-800">
-                <span id="orText" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#16213e] px-4 text-xs text-gray-500 uppercase tracking-widest">Or</span>
-            </div>
-
+            <div class="relative my-8 text-center"><hr class="border-gray-800"><span id="orText" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0b0f1a] px-4 text-xs text-gray-500 uppercase">Or</span></div>
             <button class="w-full bg-white text-gray-900 font-bold py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-gray-200 transition">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" class="w-5 h-5">
                 <span id="googleText">Continue with Google</span>
@@ -89,7 +53,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Your Correct Firebase Config
+        // Verified Config - Space Removed
         const firebaseConfig = {
             apiKey: "AIzaSyAZXreOuLUFY6TSWsypxsp0TDyIE0aGWcI",
             authDomain: "wifi-core.firebaseapp.com",
@@ -103,24 +67,9 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Language Data
         const langData = {
-            en: {
-                subTitle: "Share your internet, Earn data credits.",
-                loginTitle: "Login Now",
-                btnText: "Login",
-                orText: "Or",
-                googleText: "Continue with Google",
-                passPlace: "Password"
-            },
-            bn: {
-                subTitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।",
-                loginTitle: "লগইন করুন",
-                btnText: "লগইন করুন",
-                orText: "অথবা",
-                googleText: "Google দিয়ে চালিয়ে যান",
-                passPlace: "পাসওয়ার্ড"
-            }
+            en: { subTitle: "Share your internet, Earn data credits.", loginTitle: "Login Now", btnText: "Login", orText: "Or", googleText: "Continue with Google", passPlace: "Password" },
+            bn: { subTitle: "আপনার ইন্টারনেট শেয়ার করুন, ডাটা ক্রেডিট ইনকাম করুন।", loginTitle: "লগইন করুন", btnText: "লগইন করুন", orText: "অথবা", googleText: "Google দিয়ে চালিয়ে যান", passPlace: "পাসওয়ার্ড" }
         };
 
         window.switchLang = (lang) => {
@@ -130,37 +79,29 @@
             document.getElementById('orText').innerText = langData[lang].orText;
             document.getElementById('googleText').innerText = langData[lang].googleText;
             document.getElementById('password').placeholder = langData[lang].passPlace;
-            
-            // Toggle Button Colors
-            document.getElementById('enBtn').className = lang === 'en' ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white';
-            document.getElementById('bnBtn').className = lang === 'bn' ? 'text-blue-400 font-bold' : 'text-gray-400 hover:text-white';
+            document.getElementById('enBtn').className = lang === 'en' ? 'text-blue-400 font-bold' : 'text-gray-400';
+            document.getElementById('bnBtn').className = lang === 'bn' ? 'text-blue-400 font-bold' : 'text-gray-400';
         };
 
-        // Handle Login
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const btn = document.getElementById('loginBtn');
             
-            btn.innerHTML = `<i class="fas fa-spinner animate-spin"></i>`;
             btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-circle-notch animate-spin"></i>`;
 
             signInWithEmailAndPassword(auth, email, password)
-                .then(() => {
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1000);
-                })
+                .then(() => { window.location.href = "dashboard.html"; })
                 .catch((error) => {
                     alert("Error: " + error.message);
-                    btn.innerHTML = `<span>Login</span> <i class="fas fa-paper-plane text-xs"></i>`;
                     btn.disabled = false;
+                    btn.innerHTML = `<span>Login</span> <i class="fas fa-paper-plane text-xs"></i>`;
                 });
         });
 
-        // Redirect if already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) window. location.href = "dashboard.html";
-        });
+        onAuthStateChanged(auth, (user) => { if (user) window.location.href = "dashboard.html"; });
     </script>
 </body>
 </html>
