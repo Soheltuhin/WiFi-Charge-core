@@ -3,246 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sohel Dashboard - Premium</title>
+    <title>Mohammad Sohel Hossain - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --neon-blue: #00f2ff;
-            --bg-dark: #0b1c11;
+            --bg-dark: #0b1c11; /* Deep forest dark background */
             --yt-red: #ff0000;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background: var(--bg-dark);
-            background-image: 
-                radial-gradient(circle at top right, #384f42, transparent 50%),
-                radial-gradient(circle at bottom left, #23432f, transparent 40%);
             color: white;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-sizing: border-box;
-            /* নিচে ১mm লাইনের জন্য বর্ডার যোগ করা হয়েছে */
-            border-bottom: 3px solid var(--neon-blue); /* ১mm প্রায় ৩ পিক্সেলের সমান */
         }
 
-        /* ১. হেডার (আপডেটেড: গুগল ও সার্কেল মুছে 'প্রিমিয়াম' যোগ) */
-        .header-top {
-            height: 60px;
-            display: flex;
-            justify-content: center; /* মাঝখানে রাখার জন্য */
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-            position: relative;
-        }
-
-        .header-top .brand-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
+        /* 1. Top Branding Header */
+        .top-bar {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ২. লগইন সেকশন */
-        #login-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .login-btn {
-            margin-top: 25px;
-            padding: 15px 45px;
-            background: white;
-            color: #222;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
-            box-shadow: 0 5px 20px rgba(255,255,255,0.1);
         }
 
-        /* ৩. ড্যাশবোর্ড কন্টেইনার */
-        #dashboard {
-            display: none;
-            flex: 1;
-            flex-direction: column;
-        }
-
-        /* ৪. লোডিং বক্স */
-        .loading-box {
-            background: white;
-            margin: auto;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 80%;
-            max-width: 350px;
-            color: #333;
-        }
-
-        /* ৫. প্রোফাইল কার্ড */
-        .profile-card {
-            padding: 15px 20px;
-            background: rgba(0, 43, 83, 0.9);
+        /* 2. Profile Section */
+        .profile-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: #002b53; /* Dark blue as per image */
             border-bottom: 2px solid var(--neon-blue);
         }
 
-        .user-info { display: flex; align-items: center; gap: 12px; }
-        .avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--neon-blue); }
-        .user-text h2 { margin: 0; font-size: 13px; letter-spacing: 0.5px;}
-        .user-text p { margin: 2px 0 0; font-size: 10px; color: var(--neon-blue); font-weight: bold; }
+        .user-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        /* ৬. বিশাল ইউটিউব বাটন */
-        .yt-banner {
-            width: 92%;
-            margin: 15px auto;
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-blue);
+            background: url('https://ui-avatars.com/api/?name=Sohel+Hossain&background=007aff&color=fff');
+            background-size: cover;
+        }
+
+        .user-text h2 {
+            margin: 0;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .user-text p {
+            margin: 2px 0 0;
+            font-size: 10px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        /* 3. Massive YouTube Banner */
+        .youtube-section {
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .yt-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: #1a0000;
             border: 4px solid var(--yt-red);
             border-radius: 20px;
-            padding: 45px 0;
-            text-align: center;
+            padding: 40px 0;
             text-decoration: none;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            transition: transform 0.2s;
         }
 
-        .yt-banner i { font-size: 80px; color: var(--yt-red); }
-        .yt-label { color: var(--yt-red); font-weight: bold; font-size: 20px; margin-top: 15px; display: block; letter-spacing: 3px; }
+        .yt-btn:active { transform: scale(0.98); }
 
-        /* ৭. ৯টি অ্যাপ গ্রিড */
+        .yt-btn i {
+            font-size: 70px;
+            color: var(--yt-red);
+        }
+
+        .yt-btn span {
+            color: var(--yt-red);
+            font-weight: bold;
+            font-size: 22px;
+            margin-top: 10px;
+            letter-spacing: 4px;
+        }
+
+        /* 4. 3x3 App Grid */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            width: 92%;
-            margin: 0 auto 15px;
+            gap: 15px;
+            padding: 0 20px 20px;
             flex: 1;
-            padding-bottom: 5px; /* নিচের লাইনের সাথে দূরত্বের জন্য */
         }
 
         .app-card {
-            background: #001a33;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
+            background: white;
+            border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            color: white;
-            transition: 0.2s;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: background 0.2s;
         }
 
-        .app-card i { font-size: 30px; margin-bottom: 10px; }
-        .app-card span { font-size: 11px; text-align: center; }
+        .app-card:active { background: #e0e0e0; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .app-card i {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .app-card span {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Footer Accent Line */
+        .footer-line {
+            height: 3px;
+            background: var(--neon-blue);
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header-top">
-        <div class="brand-name">প্রিমিয়াম</div>
-    </div>
+    <div class="top-bar">MOHAMMAD SOHEL HOSSAIN</div>
 
-    <div id="login-section">
-        <h2 style="font-weight: 400;">Account Login</h2>
-        <button class="login-btn" onclick="handleLogin()">Login with Google</button>
-    </div>
-
-    <div id="dashboard">
-        <div id="loader" class="loading-box">
-            <h3 style="color: #2e7d32; margin: 0;">Success!</h3>
-            <p style="margin: 10px 0;">WiFi Data Storage Loading...</p>
-            <i class="fas fa-circle-notch fa-spin" style="font-size: 24px; color: #007aff;"></i>
-        </div>
-
-        <div id="content" style="display:none; height: 100%; flex-direction: column;">
-            <div class="profile-card">
-                <div class="user-info">
-                    <img src="https://ui-avatars.com/api/?name=Sohel+Hossain&background=007aff&color=fff" class="avatar">
-                    <div class="user-text">
-                        <h2>MOHAMMAD SOHEL HOSSAIN</h2>
-                        <p><i class="fas fa-check-circle"></i> PREMIUM USER</p>
-                    </div>
-                </div>
-                <i class="fas fa-cog" style="color: #888;"></i>
-            </div>
-
-            <a href="https://www.youtube.com" target="_blank" class="yt-banner">
-                <i class="fab fa-youtube"></i>
-                <span class="yt-label">YOUTUBE</span>
-            </a>
-
-            <div class="app-grid">
-                <a href="https://google.com" class="app-card">
-                    <i class="fab fa-google" style="color: #4285F4;"></i>
-                    <span>Google</span>
-                </a>
-                <a href="https://facebook.com" class="app-card">
-                    <i class="fab fa-facebook" style="color: #1877F2;"></i>
-                    <span>Facebook</span>
-                </a>
-                <a href="https://gemini.google.com/" class="app-card">
-                    <i class="fas fa-wand-magic-sparkles" style="color: #8E75FF;"></i>
-                    <span>Gemini AI</span>
-                </a>
-                <a href="https://www.tiktok.com" class="app-card">
-                    <i class="fab fa-tiktok" style="color: #fff;"></i>
-                    <span>TikTok</span>
-                </a>
-                <a href="https://web.whatsapp.com" class="app-card">
-                    <i class="fab fa-whatsapp" style="color: #25D366;"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="https://quran.com" class="app-card">
-                    <i class="fas fa-book-quran" style="color: #FFD700;"></i>
-                    <span>Al-Quran</span>
-                </a>
-                <a href="tel:" class="app-card">
-                    <i class="fas fa-phone-alt" style="color: #34C759;"></i>
-                    <span>Dialer</span>
-                </a>
-                <a href="intent:#Intent;action=android.settings.WIFI_SETTINGS;end" class="app-card">
-                    <i class="fas fa-wifi" style="color: #007AFF;"></i>
-                    <span>WiFi Setup</span>
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.digibites.accubattery" class="app-card">
-                    <i class="fas fa-battery-three-quarters" style="color: #4CAF50;"></i>
-                    <span>AccuBattery</span>
-                </a>
+    <div class="profile-container">
+        <div class="user-details">
+            <div class="avatar"></div>
+            <div class="user-text">
+                <h2>MOHAMMAD SOHEL HOSSAIN</h2>
+                <p><i class="fas fa-check-circle"></i> PREMIUM USER</p>
             </div>
         </div>
+        <i class="fas fa-cog" style="color: #888; font-size: 20px;"></i>
     </div>
 
-    <script>
-        function handleLogin() {
-            // গুগল পেজ ওপেন
-            window.open("https://accounts.google.com/", "_blank");
-            
-            // স্ক্রিন সুইচ
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'flex';
+    <div class="youtube-section">
+        <a href="https://www.youtube.com" class="yt-btn">
+            <i class="fab fa-youtube"></i>
+            <span>YOUTUBE</span>
+        </a>
+    </div>
 
-            // ৩ সেকেন্ড লোডিং
-            setTimeout(function() {
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-            }, 3000);
-        }
-    </script>
+    <div class="app-grid">
+        <a href="https://google.com" class="app-card">
+            <i class="fab fa-google" style="color: #4285F4;"></i>
+            <span>Google</span>
+        </a>
+        <a href="https://facebook.com" class="app-card">
+            <i class="fab fa-facebook" style="color: #1877F2;"></i>
+            <span>Facebook</span>
+        </a>
+        <a href="https://gemini.google.com" class="app-card">
+            <i class="fas fa-wand-magic-sparkles" style="color: #8E75FF;"></i>
+            <span>Gemini AI</span>
+        </a>
+
+        <a href="https://tiktok.com" class="app-card">
+            <i class="fab fa-tiktok" style="color: #000;"></i>
+            <span>TikTok</span>
+        </a>
+        <a href="https://web.whatsapp.com" class="app-card">
+            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+            <span>WhatsApp</span>
+        </a>
+        <a href="https://quran.com" class="app-card">
+            <i class="fas fa-book-quran" style="color: #B8860B;"></i>
+            <span>Al-Quran</span>
+        </a>
+
+        <a href="tel:" class="app-card">
+            <i class="fas fa-phone-alt" style="color: #34C759;"></i>
+            <span>Dialer</span>
+        </a>
+        <a href="#" class="app-card">
+            <i class="fas fa-wifi" style="color: #007AFF;"></i>
+            <span>WiFi Setup</span>
+        </a>
+        <a href="#" class="app-card">
+            <i class="fas fa-battery-three-quarters" style="color: #4CAF50;"></i>
+            <span>AccuBattery</span>
+        </a>
+    </div>
+
+    <div class="footer-line"></div>
+
 </body>
 </html>
