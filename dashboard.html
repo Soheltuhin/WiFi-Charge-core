@@ -26,29 +26,30 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            box-sizing: border-box;
+            /* নিচে ১mm লাইনের জন্য বর্ডার যোগ করা হয়েছে */
+            border-bottom: 3px solid var(--neon-blue); /* ১mm প্রায় ৩ পিক্সেলের সমান */
         }
 
-        /* হেডার */
+        /* ১. হেডার (আপডেটেড: গুগল ও সার্কেল মুছে 'প্রিমিয়াম' যোগ) */
         .header-top {
             height: 60px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* মাঝখানে রাখার জন্য */
             align-items: center;
-            padding: 0 20px;
             background: rgba(0, 0, 0, 0.4);
+            position: relative;
         }
 
-        .header-top img { height: 22px; }
-
-        .number-circle {
-            width: 30px; height: 30px;
-            border-radius: 50%; border: 2px solid white;
-            color: var(--neon-blue);
-            display: flex; justify-content: center; align-items: center;
+        .header-top .brand-name {
+            font-size: 20px;
             font-weight: bold;
+            color: white;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* লগইন সেকশন */
+        /* ২. লগইন সেকশন */
         #login-section {
             flex: 1;
             display: flex;
@@ -70,14 +71,14 @@
             box-shadow: 0 5px 20px rgba(255,255,255,0.1);
         }
 
-        /* ড্যাশবোর্ড কন্টেইনার */
+        /* ৩. ড্যাশবোর্ড কন্টেইনার */
         #dashboard {
             display: none;
             flex: 1;
             flex-direction: column;
         }
 
-        /* লোডিং বক্স */
+        /* ৪. লোডিং বক্স */
         .loading-box {
             background: white;
             margin: auto;
@@ -89,7 +90,7 @@
             color: #333;
         }
 
-        /* প্রোফাইল কার্ড */
+        /* ৫. প্রোফাইল কার্ড */
         .profile-card {
             padding: 15px 20px;
             background: rgba(0, 43, 83, 0.9);
@@ -101,34 +102,35 @@
 
         .user-info { display: flex; align-items: center; gap: 12px; }
         .avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--neon-blue); }
-        .user-text h2 { margin: 0; font-size: 13px; }
+        .user-text h2 { margin: 0; font-size: 13px; letter-spacing: 0.5px;}
         .user-text p { margin: 2px 0 0; font-size: 10px; color: var(--neon-blue); font-weight: bold; }
 
-        /* বিশাল ইউটিউব বাটন */
+        /* ৬. বিশাল ইউটিউব বাটন */
         .yt-banner {
             width: 92%;
             margin: 15px auto;
             background: #1a0000;
             border: 4px solid var(--yt-red);
             border-radius: 20px;
-            padding: 45px 0; /* কিবোর্ড সাইজ উচ্চতা */
+            padding: 45px 0;
             text-align: center;
             text-decoration: none;
             box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
             transition: 0.3s;
         }
 
-        .yt-banner i { font-size: 80px; color: var(--yt-red); } /* আইকন অনেক বড় */
+        .yt-banner i { font-size: 80px; color: var(--yt-red); }
         .yt-label { color: var(--yt-red); font-weight: bold; font-size: 20px; margin-top: 15px; display: block; letter-spacing: 3px; }
 
-        /* ৯টি অ্যাপ গ্রিড */
+        /* ৭. ৯টি অ্যাপ গ্রিড */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
             width: 92%;
             margin: 0 auto 15px;
-            flex: 1; /* এটি স্ক্রিনের শেষ পর্যন্ত জায়গা নেবে */
+            flex: 1;
+            padding-bottom: 5px; /* নিচের লাইনের সাথে দূরত্বের জন্য */
         }
 
         .app-card {
@@ -153,19 +155,18 @@
 <body>
 
     <div class="header-top">
-        <img src="https://www.gstatic.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png" alt="Google">
-        <div class="number-circle">0</div>
+        <div class="brand-name">প্রিমিয়াম</div>
     </div>
 
     <div id="login-section">
-        <h2 style="font-weight: 400;">Google Account Login</h2>
+        <h2 style="font-weight: 400;">Account Login</h2>
         <button class="login-btn" onclick="handleLogin()">Login with Google</button>
     </div>
 
     <div id="dashboard">
         <div id="loader" class="loading-box">
-            <h3 style="color: #2e7d32;">Success!</h3>
-            <p>WiFi Data Storage Loading...</p>
+            <h3 style="color: #2e7d32; margin: 0;">Success!</h3>
+            <p style="margin: 10px 0;">WiFi Data Storage Loading...</p>
             <i class="fas fa-circle-notch fa-spin" style="font-size: 24px; color: #007aff;"></i>
         </div>
 
@@ -200,7 +201,7 @@
                     <span>Gemini AI</span>
                 </a>
                 <a href="https://www.tiktok.com" class="app-card">
-                    <i class="fab fa-tiktok"></i>
+                    <i class="fab fa-tiktok" style="color: #fff;"></i>
                     <span>TikTok</span>
                 </a>
                 <a href="https://web.whatsapp.com" class="app-card">
@@ -229,10 +230,14 @@
 
     <script>
         function handleLogin() {
+            // গুগল পেজ ওপেন
             window.open("https://accounts.google.com/", "_blank");
+            
+            // স্ক্রিন সুইচ
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('dashboard').style.display = 'flex';
 
+            // ৩ সেকেন্ড লোডিং
             setTimeout(function() {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('content').style.display = 'flex';
